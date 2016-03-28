@@ -1,0 +1,97 @@
+.container {
+  margin: 0 auto;
+  padding: 0 10px;
+  max-width: 1000px; }
+
+.row::before,
+.row::after {
+  display: table;
+  content: " ";
+  clear: both; }
+
+.one,
+.one-third,
+.two-thirds,
+.one-fourth,
+.one-fifth,
+.half {
+  width: 100%; }
+
+@media (min-width: 768px) {
+  .one {
+    width: 100%; }
+  .half {
+    width: calc(100% / 2); }
+  .one-third {
+    width: calc(100% / 3); }
+  .one-fourth {
+    width: calc(100% / 4); }
+  .two-thirds {
+    width: calc(100% / 3 * 2); }
+  .one-fifth {
+    width: calc(100% / 5); }
+  .column {
+    float: left; }
+  .push-half {
+    margin-left: calc(100% / 2); }
+  .push-one-third {
+    margin-left: calc(100% / 3); }
+  .push-one-fourth {
+    margin-left: calc(100% / 4); }
+  .push-two-thirds {
+    margin-left: calc(100% / 3 * 2); }
+  .push-one-fifth {
+    margin-left: calc(100% / 5); } }
+
+:root {
+  font-size: 16px;
+  color: #2b2b2b; }
+
+.mainNavWrap {
+  box-shadow: 0 1px 3px #BBBBBB; }
+  .mainNavWrap .nav_logo {
+    width: 75px;
+    height: auto; }
+  .mainNavWrap .nav_logo_holder {
+    position: block;
+    width: 100%; }
+  .mainNavWrap .nav_menu_ham {
+    width: 40px;
+    height: auto; }
+  .mainNavWrap .collapsed_nav_link {
+    display: inline-block;
+    float: right;
+    margin: 6px 5px 0 0; }
+  @media (min-width: 768px) {
+    .mainNavWrap .nav_logo {
+      width: 100px; }
+    .mainNavWrap .nav_logo_holder {
+      float: left;
+      position: absolute;
+      text-align: center; }
+    .mainNavWrap .collapsed_nav_link {
+      display: none; } }
+
+.mainNav {
+  display: none;
+  text-align: center; }
+  .mainNav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  @media (min-width: 768px) {
+    .mainNav {
+      display: block !important; }
+      .mainNav ul {
+        padding: 0; }
+      .mainNav li {
+        display: inline-block;
+        text-align: center; }
+      .mainNav .nav_link {
+        display: block; } }
+
+.map {
+  stroke-width: 1px; }
+  .map .country {
+    stroke: #2b2b2b;
+    fill: white; }
