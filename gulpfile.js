@@ -5,6 +5,7 @@ var concatCss 	= require('gulp-concat-css');
 var nodemon 	= require('gulp-nodemon');
 var path		= require('path');
 var sass		= require('gulp-sass');
+var webpack		= require('webpack-stream');
 
 gulp.task('css-concat',function(){
 
@@ -26,6 +27,11 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./public/css/assets'));
 });
 
+gulp.task('webpack-build',function(){
+	return gulp.src('./entry.js')
+		.pipe(webpack( require('./webpack.config.js') ))
+		.pipe(gulp.dest('./public/dist/'));
+});
 
 
 gulp.task('develop',function(){
@@ -37,13 +43,13 @@ gulp.task('develop',function(){
 		tasks: function (changedFiles) {
     	var tasks = []
     		changedFiles.forEach(function (file) {
-    		  if (path.extname(file) === '.js' && !~tasks.indexOf('lint')) tasks.push('lint')
+    		  if (path.extname(file) === '.js' && !~tasks.indexOf('webpack-build')) tasks.push('webpack-build')
     		  if (path.extname(file) === '.css' && !~tasks.indexOf('css-concat')) tasks.push('css-concat')
     		  if (path.extname(file) === '.scss' && !~tasks.indexOf('sass')) tasks.push('sass')
     		})
     	return tasks
   		},
-		ignore: ['public/css/build/bundle.css', 'package.json', 'gulpfile.js']
+		ignore: ['public/css/build/bundle.css', 'package.json', 'gulpfile.js', 'webpack.config.js', 'public/dist/bundle.js', ]
 	})
 	.on('restart',function(){
 		console.log('restarted');

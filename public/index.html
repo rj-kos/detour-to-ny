@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/build/bundle.css">
+    <title>Starter Single Page Application</title>
+
+</head>
+
+<body id="app">
+    <div class="one column mainNavWrap">
+            <div class="nav_logo_holder">
+                <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
+                <a href="#" class="collapsed_nav_link"><img width="1.5" height="1.4" src="../img/menu_hamburger.svg" class="nav_menu_ham"></a>
+            </div>
+        <div class="container mainNav">
+            <div class="row">
+                <ul class="one column">
+                    <li class="one-fifth column nav_link">
+                        <h4>HOME</h4>
+                    </li>
+                    <li class="one-fifth column nav_link">
+                        <h4>PLACES</h4>
+                    </li>
+                    <li class="push-one-fifth one-fifth column nav_link">
+                        <h4>GALLERY</h4>
+                    </li>
+                    <li class="one-fifth column nav_link">
+                        <h4>PLACEHOLDER</h4>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="one column map_holder"></div>
+        </div>
+    </div>
+    <style>
+    [v-cloak] {
+        display:none;
+    }
+    </style>
+
+    <div v-cloak v-for="post in posts"> 
+    {{ post.title }}
+    </div>
+     <button v-on:click="getBPs">Greet</button>
+
+      <pre>{{ $data | json }}</pre>
+
+
+   
+    <!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
+    <script src="../../dist/bundle.js"></script>
+
+
+</body>
+</html>
+
