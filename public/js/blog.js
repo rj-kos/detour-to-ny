@@ -1,6 +1,15 @@
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
 
+<template class="myTemplate">
+<h1>HELLO WORLD</h1>
+</template>
+
+Vue.component('my-component',{
+    template:'.myTemplate'
+});
+
+
 var vm = new Vue({
     
         el:'#app',
@@ -19,4 +28,5 @@ var vm = new Vue({
         }
     });
 
-    vm.getBPs();
+    //vm.getBPs();
+

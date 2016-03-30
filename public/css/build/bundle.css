@@ -513,6 +513,14 @@ th {
   }
 }
 
+.center {
+  text-align: center;
+}
+
+[v-cloak] {
+  display: none;
+}
+
 :root {
   font-size: 16px;
   color: #2b2b2b;

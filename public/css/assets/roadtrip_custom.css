@@ -43,6 +43,12 @@
   .push-one-fifth {
     margin-left: calc(100% / 5); } }
 
+.center {
+  text-align: center; }
+
+[v-cloak] {
+  display: none; }
+
 :root {
   font-size: 16px;
   color: #2b2b2b; }

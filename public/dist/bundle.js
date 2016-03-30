@@ -20099,6 +20099,11 @@
 	var Vue = __webpack_require__(6);
 	Vue.use(__webpack_require__(8));
 
+	    Vue.component('my-component',{
+	        template:'<div>HELLO WORLD!</div>'
+	    });
+
+
 	var vm = new Vue({
 	    
 	        el:'#app',
@@ -20117,7 +20122,8 @@
 	        }
 	    });
 
-	    vm.getBPs();
+	    //vm.getBPs();
+
 
 
 /***/ },

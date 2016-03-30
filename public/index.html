@@ -39,18 +39,17 @@
             <div class="one column map_holder"></div>
         </div>
     </div>
-    <style>
-    [v-cloak] {
-        display:none;
-    }
-    </style>
+    
+    
+    
 
     <div v-cloak v-for="post in posts"> 
     {{ post.title }}
     </div>
      <button v-on:click="getBPs">Greet</button>
+     <my-component></my-component>
 
-      <pre>{{ $data | json }}</pre>
+      <pre v-cloak>{{ $data | json }}</pre>
 
 
    

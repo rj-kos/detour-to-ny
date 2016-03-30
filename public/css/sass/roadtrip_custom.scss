@@ -91,6 +91,15 @@ $desktop-width: 1023px;
 
 }
 
+//Utility classes
+
+.center {
+	text-align:center;
+}
+
+[v-cloak] {
+        display:none;
+}
 
 //custom styling
 
