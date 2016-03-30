@@ -40,19 +40,16 @@
         </div>
     </div>
     
-    
-    
-
-    <div v-cloak v-for="post in posts"> 
-    {{ post.title }}
+    <div class="container">
+        <post v-cloak v-for="post in posts" :title="post.title" :content="post.content"></post>
     </div>
+    
+    
      <button v-on:click="getBPs">Greet</button>
-     <my-component></my-component>
 
+
+     
       <pre v-cloak>{{ $data | json }}</pre>
-
-
-   
     <!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
     <script src="../../dist/bundle.js"></script>
 

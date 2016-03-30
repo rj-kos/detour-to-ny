@@ -39,11 +39,12 @@ gulp.task('develop',function(){
 	nodemon({
 		legacyWatch:true,
 		script:'server.js',
-		ext: 'js css scss',
+		ext: 'js css scss vue',
 		tasks: function (changedFiles) {
     	var tasks = []
     		changedFiles.forEach(function (file) {
     		  if (path.extname(file) === '.js' && !~tasks.indexOf('webpack-build')) tasks.push('webpack-build')
+    		  if (path.extname(file) === '.vue' && !~tasks.indexOf('webpack-build')) tasks.push('webpack-build')
     		  if (path.extname(file) === '.css' && !~tasks.indexOf('css-concat')) tasks.push('css-concat')
     		  if (path.extname(file) === '.scss' && !~tasks.indexOf('sass')) tasks.push('sass')
     		})
