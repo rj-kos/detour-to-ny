@@ -55,20 +55,20 @@
 	    
 	        el:'#app',
 	        data:{
-	            posts: []
+	            blogposts: []
 	        },
 	        methods:{
 	            getBPs:
 	            function(){
-	                this.$http.get('/api/blog').then(function(posts){
-	                    this.posts = posts.data;
+	                this.$http.get('/api/blog').then(function(blogposts){
+	                    this.blogposts = blogposts.data;
 	                }, function (response) {
 	                    console.log('error');
 	            });
 	            }
 	        },
 	        components: {
-	        	post:blog
+	        	blogpost:blog
 	        }
 	    });
 

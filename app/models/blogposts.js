@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
+mongoose.set('debug', true);
 
-module.exports = mongoose.model('posts', {
+module.exports = mongoose.model('blogposts', {
 	title : {type : String, default:''},
 	content: {type: String, default: ''},
+	placeid: {type: String, default: ''},
 	date: {type: Date, default: Date.now}
 });
