@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="./css/build/bundle.css">
-    <title>Detour To NY</title>
+    <link rel="stylesheet" type="text/css" href="../css/build/bundle.css">
+    <link rel="stylesheet" type="text/css" href="../admin/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="../admin/medium-editor.css">
+    <title>Detour To NY Admin Panel</title>
 
 </head>
 
-<body id="app">
+<body id="admin_app">
+    <div class="one column">
+        <h2>Welcome to the Admin Panel</h2>
+    </div>
     <div class="one column mainNavWrap">
             <div class="nav_logo_holder">
                 <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
@@ -18,13 +23,13 @@
         <div class="container mainNav">
             <div class="row">
                 <ul class="one column">
-                    <li class="one-fifth column nav_link">
-                        <h4>HOME</h4>
+                    <li class="one-fifth column nav_link" v-on:click="changeView('place_panel')">
+                        <h4>Place</h4>
                     </li>
-                    <li class="one-fifth column nav_link">
-                        <h4>PLACES</h4>
+                    <li class="one-fifth column nav_link" v-on:click="changeView('bp_panel')">
+                        <h4>Blog</h4>
                     </li>
-                    <li class="push-one-fifth one-fifth column nav_link">
+                    <li class="push-one-fifth one-fifth column nav_link" v-on:click="changeView('img_panel')">
                         <h4>GALLERY</h4>
                     </li>
                     <li class="one-fifth column nav_link">
@@ -34,24 +39,10 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="one column map_holder"></div>
-        </div>
-    </div>
-    
-    <div class="container">
-        <blogpost v-cloak v-for="blogpost in blogposts" :title="blogpost.title" :content="blogpost.content"></blogpost>
-    </div>
-    
-    
-     <button v-on:click="getBPs">Greet</button>
 
+<component :is="currentView"></component>
 
-     
-      <pre v-cloak>{{ $data | json }}</pre>
-    <!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
-    <script src="./dist/index.bundle.js"></script>
+    <script src="../dist/admin.bundle.js"></script>
 
 
 </body>

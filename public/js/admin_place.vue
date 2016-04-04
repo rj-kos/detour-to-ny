@@ -1,8 +1,7 @@
 <template>
     
     <div class="row">
-        <h1>{{title}}</h1>
-        <p>{{content}}</p>
+        <h1>places</h1>
     </div>
     
 </template>
@@ -19,7 +18,7 @@
 
 export default {
 
-    props:['title','content']
+    //props:['title','content']
 
     //data: function() {
     //    return {

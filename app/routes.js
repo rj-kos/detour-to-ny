@@ -1,5 +1,18 @@
+var uuid = require('node-uuid');
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+  destination: 'public/uploads/',
+  filename: function (req, file, cb) {
+    cb(null, uuid.v4() + '.jpg')
+  }
+});
+
+var upload = multer( { storage:storage });
 var Blog = require('./models/blogposts');
 var Places = require('./models/places');
+var Albums = require('./models/albums');
 
     module.exports = function(app) {
 
@@ -51,12 +64,35 @@ var Places = require('./models/places');
 
         });
 
+       //app.post('/api/albums', function(req,res){
+       //  var album = new Albums();
+       //  album.save(function(err){
+       //    if (err)
+       //      res.send(err);
 
+       //    res.json({message: 'Album Created'});
+       //  });
+
+       //});
+
+        //
+
+        app.post('/api/image_upload', upload.single( 'file' ), function(req,res,next){
+        
+          console.log(req.file);
+          return res.status( 200 ).send( req.file );
+
+        });
 
         // route to handle delete goes here (app.delete)
 
         // frontend routes =========================================================
         // route to handle all vue requests
+
+        app.get('/admin',function(req,res){
+            res.sendfile('./public/admin.html');
+        });
+
         app.get('*', function(req, res) {
             res.sendfile('./public/index.html'); // load the public/index.html file
         });

@@ -50,10 +50,10 @@ gulp.task('develop',function(){
     		})
     	return tasks
   		},
-		ignore: ['public/css/build/bundle.css', 'package.json', 'gulpfile.js', 'webpack.config.js', 'public/dist/bundle.js', ]
+		ignore: ['public/uploads','public/css/build/bundle.css', 'package.json', 'gulpfile.js', 'webpack.config.js', 'public/dist','public/admin/' ]
 	})
 	.on('restart',function(){
-		console.log('restarted');
+		console.log('Restarted');
 	});
 
 });

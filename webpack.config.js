@@ -4,10 +4,13 @@ var rootDir = __dirname;
 
 module.exports = {
 	context: __dirname,
-	entry: "./entry.js",
+	entry: {
+		index:"./entry.js",
+		admin:"./admin_entry.js"
+	},
 	output: {
 		path: __dirname + "/public/dist",
-		filename: "bundle.js"
+		filename: "[name].bundle.js"
 	},
 	module: {
     // `loaders` is an array of loaders to use.

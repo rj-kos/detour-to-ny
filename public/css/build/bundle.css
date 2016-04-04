@@ -543,6 +543,7 @@ body {
 .mainNavWrap .nav_logo_holder {
   position: block;
   width: 100%;
+  z-index: -1;
 }
 
 .mainNavWrap .nav_menu_ham {
