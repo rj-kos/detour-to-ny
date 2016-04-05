@@ -1,7 +1,13 @@
 <template>
-    
-    <div class="row">
-        <h1>places</h1>
+    <div class="container">
+    	<div class="row">
+        	<h1>Places</h1>
+    	</div>
+    	<div class="row">
+    	<button v-on:click="getLocation()">Get Coordinates</button>
+    	<p class="geo_position">Latitude: {{latitude}}  Longitude: {{longitude}}</p>
+    	{{warning}}
+    	</div>
     </div>
     
 </template>
@@ -10,13 +16,32 @@
 
 
 
-//Vue.component('my-component',{
-//    template:'.myTemplate'
-//});
-
-
-
 export default {
+	data: function() {
+		return {
+			latitude:'',
+			longitude:'',
+			warning:''
+		}
+	},
+	methods:{
+		getLocation:
+			function(){
+				if (navigator.geolocation) {
+        			navigator.geolocation.getCurrentPosition(this.showPosition);
+    				} 
+    				else { 
+        				this.warning = "Geolocation is not supported by this browser.";
+    				}
+			},
+		showPosition:
+			function(position){
+				this.latitude = position.coords.latitude;
+    			this.longitude = position.coords.longitude;	
+			}
+		}
+
+	
 
     //props:['title','content']
 

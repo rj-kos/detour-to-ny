@@ -63,7 +63,7 @@ body {
     width: 75px;
     height: auto; }
   .mainNavWrap .nav_logo_holder {
-    position: block;
+    display: block;
     width: 100%;
     z-index: -1; }
   .mainNavWrap .nav_menu_ham {
@@ -73,13 +73,16 @@ body {
     display: inline-block;
     float: right;
     margin: 6px 5px 0 0; }
+  .mainNavWrap .desktop_nav_logo {
+    display: none; }
   @media (min-width: 768px) {
     .mainNavWrap .nav_logo {
       width: 100px; }
     .mainNavWrap .nav_logo_holder {
       float: left;
       position: absolute;
-      text-align: center; }
+      text-align: center;
+      display: none; }
     .mainNavWrap .collapsed_nav_link {
       display: none; } }
 

@@ -25452,18 +25452,40 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
-	exports.default = {};
+	exports.default = {
+		data: function data() {
+			return {
+				latitude: '',
+				longitude: '',
+				warning: ''
+			};
+		},
+		methods: {
+			getLocation: function getLocation() {
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(this.showPosition);
+				} else {
+					this.warning = "Geolocation is not supported by this browser.";
+				}
+			},
+			showPosition: function showPosition(position) {
+				this.latitude = position.coords.latitude;
+				this.longitude = position.coords.longitude;
+			}
+		}
+
+	};
 
 /***/ },
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"row\">\n    <h1>places</h1>\n</div>\n\n";
+	module.exports = "\n<div class=\"container\">\n\t<div class=\"row\">\n    \t<h1>Places</h1>\n\t</div>\n\t<div class=\"row\">\n\t<button v-on:click=\"getLocation()\">Get Coordinates</button>\n\t<p class=\"geo_position\">Latitude: {{latitude}}  Longitude: {{longitude}}</p>\n\t{{warning}}\n\t</div>\n</div>\n\n";
 
 /***/ },
 /* 13 */

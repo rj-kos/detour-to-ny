@@ -541,7 +541,7 @@ body {
 }
 
 .mainNavWrap .nav_logo_holder {
-  position: block;
+  display: block;
   width: 100%;
   z-index: -1;
 }
@@ -557,6 +557,10 @@ body {
   margin: 6px 5px 0 0;
 }
 
+.mainNavWrap .desktop_nav_logo {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .mainNavWrap .nav_logo {
     width: 100px;
@@ -566,6 +570,7 @@ body {
     float: left;
     position: absolute;
     text-align: center;
+    display: none;
   }
 
   .mainNavWrap .collapsed_nav_link {

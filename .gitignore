@@ -29,6 +29,9 @@ node_modules
 # Config directory
 config
 
+# Config directory
+public/uploads
+
 # Optional npm cache directory
 .npm
 

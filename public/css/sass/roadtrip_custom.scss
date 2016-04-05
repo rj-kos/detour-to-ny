@@ -123,7 +123,7 @@ $desktop-width: 1023px;
 		height:auto;
 	}
 	.nav_logo_holder{
-		position:block;
+		display:block;
 		width:100%;
 		z-index:-1;
 
@@ -138,6 +138,10 @@ $desktop-width: 1023px;
 		margin:6px 5px 0 0;
 	}
 
+	.desktop_nav_logo {
+		display:none;
+	}
+
 
 	@include tablet_and_desktop {
 		.nav_logo {
@@ -147,6 +151,7 @@ $desktop-width: 1023px;
 			float:left;
 			position:absolute;
 			text-align:center;
+			display:none;
 		}
 		.collapsed_nav_link {
 				display:none;
