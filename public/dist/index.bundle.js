@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Vue = __webpack_require__(1);
-	Vue.use(__webpack_require__(16));
+	Vue.use(__webpack_require__(9));
 	__webpack_require__(40);
 	var blog = __webpack_require__(43);
 
@@ -19850,14 +19850,7 @@
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -19866,16 +19859,16 @@
 
 	function install(Vue) {
 
-	    var _ = __webpack_require__(17);
+	    var _ = __webpack_require__(10);
 
 	    _.config = Vue.config;
 	    _.warning = Vue.util.warn;
 	    _.nextTick = Vue.util.nextTick;
 
-	    Vue.url = __webpack_require__(18);
-	    Vue.http = __webpack_require__(24);
-	    Vue.resource = __webpack_require__(39);
-	    Vue.Promise = __webpack_require__(26);
+	    Vue.url = __webpack_require__(11);
+	    Vue.http = __webpack_require__(17);
+	    Vue.resource = __webpack_require__(32);
+	    Vue.Promise = __webpack_require__(19);
 
 	    Object.defineProperties(Vue.prototype, {
 
@@ -19916,7 +19909,7 @@
 
 
 /***/ },
-/* 17 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/**
@@ -20044,14 +20037,14 @@
 
 
 /***/ },
-/* 18 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Service for URL templating.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 	var ie = document.documentMode;
 	var el = document.createElement('a');
 
@@ -20087,10 +20080,10 @@
 	 */
 
 	Url.transforms = [
-	    __webpack_require__(19),
-	    __webpack_require__(21),
-	    __webpack_require__(22),
-	    __webpack_require__(23)
+	    __webpack_require__(12),
+	    __webpack_require__(14),
+	    __webpack_require__(15),
+	    __webpack_require__(16)
 	];
 
 	/**
@@ -20180,14 +20173,14 @@
 
 
 /***/ },
-/* 19 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * URL Template (RFC 6570) Transform.
 	 */
 
-	var UrlTemplate = __webpack_require__(20);
+	var UrlTemplate = __webpack_require__(13);
 
 	module.exports = function (options) {
 
@@ -20202,7 +20195,7 @@
 
 
 /***/ },
-/* 20 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/**
@@ -20358,14 +20351,14 @@
 
 
 /***/ },
-/* 21 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Legacy Transform.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	module.exports = function (options, next) {
 
@@ -20410,14 +20403,14 @@
 
 
 /***/ },
-/* 22 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Query Parameter Transform.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	module.exports = function (options, next) {
 
@@ -20440,14 +20433,14 @@
 
 
 /***/ },
-/* 23 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Root Prefix Transform.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	module.exports = function (options, next) {
 
@@ -20462,17 +20455,17 @@
 
 
 /***/ },
-/* 24 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Service for sending network requests.
 	 */
 
-	var _ = __webpack_require__(17);
-	var Client = __webpack_require__(25);
-	var Promise = __webpack_require__(26);
-	var interceptor = __webpack_require__(29);
+	var _ = __webpack_require__(10);
+	var Client = __webpack_require__(18);
+	var Promise = __webpack_require__(19);
+	var interceptor = __webpack_require__(22);
 	var jsonType = {'Content-Type': 'application/json'};
 
 	function Http(url, options) {
@@ -20525,13 +20518,13 @@
 	};
 
 	Http.interceptors = [
-	    __webpack_require__(30),
-	    __webpack_require__(31),
-	    __webpack_require__(32),
-	    __webpack_require__(34),
-	    __webpack_require__(35),
-	    __webpack_require__(36),
-	    __webpack_require__(37)
+	    __webpack_require__(23),
+	    __webpack_require__(24),
+	    __webpack_require__(25),
+	    __webpack_require__(27),
+	    __webpack_require__(28),
+	    __webpack_require__(29),
+	    __webpack_require__(30)
 	];
 
 	Http.headers = {
@@ -20566,16 +20559,16 @@
 
 
 /***/ },
-/* 25 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Base client.
 	 */
 
-	var _ = __webpack_require__(17);
-	var Promise = __webpack_require__(26);
-	var xhrClient = __webpack_require__(28);
+	var _ = __webpack_require__(10);
+	var Promise = __webpack_require__(19);
+	var xhrClient = __webpack_require__(21);
 
 	module.exports = function (request) {
 
@@ -20637,15 +20630,15 @@
 
 
 /***/ },
-/* 26 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Promise adapter.
 	 */
 
-	var _ = __webpack_require__(17);
-	var PromiseObj = window.Promise || __webpack_require__(27);
+	var _ = __webpack_require__(10);
+	var PromiseObj = window.Promise || __webpack_require__(20);
 
 	function Promise(executor, context) {
 
@@ -20752,14 +20745,14 @@
 
 
 /***/ },
-/* 27 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	var RESOLVED = 0;
 	var REJECTED = 1;
@@ -20937,15 +20930,15 @@
 
 
 /***/ },
-/* 28 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * XMLHttp client.
 	 */
 
-	var _ = __webpack_require__(17);
-	var Promise = __webpack_require__(26);
+	var _ = __webpack_require__(10);
+	var Promise = __webpack_require__(19);
 
 	module.exports = function (request) {
 	    return new Promise(function (resolve) {
@@ -20993,15 +20986,15 @@
 
 
 /***/ },
-/* 29 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Interceptor factory.
 	 */
 
-	var _ = __webpack_require__(17);
-	var Promise = __webpack_require__(26);
+	var _ = __webpack_require__(10);
+	var Promise = __webpack_require__(19);
 
 	module.exports = function (handler, vm) {
 
@@ -21044,14 +21037,14 @@
 
 
 /***/ },
-/* 30 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Before Interceptor.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	module.exports = {
 
@@ -21068,7 +21061,7 @@
 
 
 /***/ },
-/* 31 */
+/* 24 */
 /***/ function(module, exports) {
 
 	/**
@@ -21104,14 +21097,14 @@
 
 
 /***/ },
-/* 32 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * JSONP Interceptor.
 	 */
 
-	var jsonpClient = __webpack_require__(33);
+	var jsonpClient = __webpack_require__(26);
 
 	module.exports = {
 
@@ -21128,15 +21121,15 @@
 
 
 /***/ },
-/* 33 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * JSONP client.
 	 */
 
-	var _ = __webpack_require__(17);
-	var Promise = __webpack_require__(26);
+	var _ = __webpack_require__(10);
+	var Promise = __webpack_require__(19);
 
 	module.exports = function (request) {
 	    return new Promise(function (resolve) {
@@ -21182,7 +21175,7 @@
 
 
 /***/ },
-/* 34 */
+/* 27 */
 /***/ function(module, exports) {
 
 	/**
@@ -21205,14 +21198,14 @@
 
 
 /***/ },
-/* 35 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Mime Interceptor.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	module.exports = {
 
@@ -21247,14 +21240,14 @@
 
 
 /***/ },
-/* 36 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Header Interceptor.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	module.exports = {
 
@@ -21279,15 +21272,15 @@
 
 
 /***/ },
-/* 37 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * CORS Interceptor.
 	 */
 
-	var _ = __webpack_require__(17);
-	var xdrClient = __webpack_require__(38);
+	var _ = __webpack_require__(10);
+	var xdrClient = __webpack_require__(31);
 	var xhrCors = 'withCredentials' in new XMLHttpRequest();
 	var originUrl = _.url.parse(location.href);
 
@@ -21322,15 +21315,15 @@
 
 
 /***/ },
-/* 38 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * XDomain client (Internet Explorer).
 	 */
 
-	var _ = __webpack_require__(17);
-	var Promise = __webpack_require__(26);
+	var _ = __webpack_require__(10);
+	var Promise = __webpack_require__(19);
 
 	module.exports = function (request) {
 	    return new Promise(function (resolve) {
@@ -21365,14 +21358,14 @@
 
 
 /***/ },
-/* 39 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Service for interacting with RESTful services.
 	 */
 
-	var _ = __webpack_require__(17);
+	var _ = __webpack_require__(10);
 
 	function Resource(url, params, actions, options) {
 
@@ -21481,6 +21474,13 @@
 
 
 /***/ },
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
 /* 40 */
 /***/ function(module, exports, __webpack_require__) {
 

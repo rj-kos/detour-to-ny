@@ -516,14 +516,30 @@ body {
   .push-one-fifth {
     margin-left: calc(100% / 5);
   }
+
+  .push-one-sixth {
+    margin-left: calc(100% / 6);
+  }
 }
 
 .center {
   text-align: center;
 }
 
+.left {
+  text-align: left;
+}
+
 [v-cloak] {
   display: none;
+}
+
+.gen-margin-top {
+  margin-top: 10px;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 :root {
@@ -589,6 +605,15 @@ body {
   padding: 0;
 }
 
+.mainNav .activeAdmin {
+  background: #2b2b2b;
+  color: white;
+}
+
+.mainNav .nav_link:hover {
+  cursor: pointer;
+}
+
 @media (min-width: 768px) {
   .mainNav {
     display: block !important;
@@ -615,4 +640,28 @@ body {
 .map .country {
   stroke: #2b2b2b;
   fill: white;
+}
+
+.adminFormHolder {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 5px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  background: #4DD0E1;
+}
+
+.adminFormHolder .bp_wrap {
+  padding: 0 15px 0 15px;
+}
+
+.adminFormHolder .bp_wrap .editable {
+  background: white;
+  min-height: 500px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.adminFormHolder .bp_wrap .bp_title_field {
+  font-size: 2em;
 }

@@ -5,6 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/build/bundle.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.css">
     <link rel="stylesheet" type="text/css" href="../admin/dropzone.css">
     <link rel="stylesheet" type="text/css" href="../admin/medium-editor.css">
     <title>Detour To NY Admin Panel</title>
@@ -12,9 +13,7 @@
 </head>
 
 <body id="admin_app">
-    <div class="one column">
-        <h2>Welcome to the Admin Panel</h2>
-    </div>
+    
     <div class="one column mainNavWrap">
             <div class="nav_logo_holder">
                 <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
@@ -23,13 +22,16 @@
         <div class="container mainNav">
             <div class="row">
                 <ul class="one column">
-                    <li class="one-fifth column nav_link" v-on:click="changeView('place_panel')">
-                        <h4>Place</h4>
+                    <li class="one-fifth column nav_link" v-on:click="changeView('place_panel')" v-bind:class="{ 'activeAdmin': activePage.place_panel }">
+                        <h4>PLACES</h4>
                     </li>
-                    <li class="one-fifth column nav_link" v-on:click="changeView('bp_panel')">
-                        <h4>Blog</h4>
+                    <li class="one-fifth column nav_link" v-on:click="changeView('bp_panel')" v-bind:class="{ 'activeAdmin': activePage.bp_panel }">
+                        <h4>BLOG</h4>
                     </li>
-                    <li class="push-one-fifth one-fifth column nav_link" v-on:click="changeView('img_panel')">
+                     <li class="one-fifth column">
+                        <h3><u>ADMIN PANEL</u></h3>
+                    </li>
+                    <li class="one-fifth column nav_link" v-on:click="changeView('img_panel')" v-bind:class="{ 'activeAdmin': activePage.img_panel }">
                         <h4>GALLERY</h4>
                     </li>
                     <li class="one-fifth column nav_link">
@@ -41,6 +43,8 @@
     </div>
 
 <component :is="currentView"></component>
+
+
 
     <script src="../dist/admin.bundle.js"></script>
 

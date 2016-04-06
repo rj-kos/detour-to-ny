@@ -11,13 +11,39 @@ var vm = new Vue({
     
         el:'#admin_app',
         data:{
-            currentView: 'place_panel'
+            currentView: 'place_panel',
+            activePage: {
+                place_panel: true,
+                bp_panel: false,
+                img_panel: false
+            }
         },
         methods:{
 
         	changeView:
         		function(newView){
-        			this.currentView = newView;
+
+                    var that = this;
+
+                    for(var key in that.activePage){
+                                if(key==newView){
+                                    that.activePage[key] = true;
+                                }
+                                else{
+                                    that.activePage[key] = false;
+                                }
+                            }
+
+                    $('.adminFormHolder').addClass('animated bounceOutLeft').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', 
+                        function() {
+
+                            console.log('working');
+    
+        			     that.currentView = newView;
+        
+                            
+                        });
+
         		},
 
         	makeDZ:
