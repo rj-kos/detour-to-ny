@@ -43,18 +43,51 @@ var topojson = require('topojson');
           .attr("d", path)
           .attr('class','country');
 
-    var aa = [-77.053505, 38.910663];
-    var bb = [-90.031, 29.981];
-    var cc = [-97.712, 30.286];
+          //you'll pull data into here
+    var pathData = [[-77.053505, 38.910663],[-79.036203,35.923858],[-80.004820,32.778257],[-82.537949,35.593030],[-90.031, 29.981],[-97.712, 30.286]];
+
+    var pathLine = d3.svg.line()  
+        .interpolate("linear") 
+        .x(function(d) { return projection(d)[0]; })  
+        .y(function(d) { return projection(d)[1]; });  
+
+    function pathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, pathData.length + 1));
+        return function(t) {
+            return pathLine(pathData.slice(0, interpolate(t)));
+        };
+    }
+  
+    var roadtripPath = map.append("path")
+        .attr("fill","none")
+        .attr("stroke-width","2px")
+        //.attr("stroke", "#26C6DA")
+        .attr("d",pathLine(pathData))  
+        .attr("class","roadtripPath");
+
+    var totalLength = roadtripPath.node().getTotalLength();
+
+    roadtripPath
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(pathData.length * 600)
+        .ease("linear")
+        .attr("stroke-dashoffset", 0);
+
 
     map.selectAll("circle")
-        .data([aa,bb,cc]).enter()
+        .data(pathData).enter()
         .append("circle")
+        .attr("class", "placeCircles")
         //.attr("class","country")
         .attr("cx", function (d) { console.log(projection(d)); return projection(d)[0]; })
         .attr("cy", function (d) { return projection(d)[1]; })
         .attr("r", function(){return (originalWidth/100) + 'px'})
-        .attr("fill", "#0097A7");
+        ;
+
       });
 
 

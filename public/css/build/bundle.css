@@ -638,8 +638,16 @@ body {
 }
 
 .map .country {
-  stroke: #2b2b2b;
-  fill: white;
+  stroke: white;
+  fill: #2b2b2b;
+}
+
+.map .roadtripPath {
+  stroke: #26C6DA;
+}
+
+.map .placeCircles {
+  fill: #0097A7;
 }
 
 .adminFormHolder {

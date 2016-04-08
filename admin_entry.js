@@ -47,10 +47,21 @@ var vm = new Vue({
         		},
 
         	makeDZ:
-        		function(el_class){
-        			new Dropzone('.' + el_class, {url:"/api/image_upload"});
+        		function(el_class, options){
+
+        			myDropzone = new Dropzone('.' + el_class, options);
+
+                    myDropzone.on("queuecomplete", function() {
+                        myDropzone.options.autoProcessQueue = false;
+                    });
+
         			console.log('makeDZ');
-        		}
+        		},
+            activateDZUpload:
+                function(){
+                    myDropzone.options.autoProcessQueue = true;
+                    myDropzone.processQueue();
+                }
             //getBPs:
             //function(){
             //    this.$http.get('/api/blog').then(function(blogposts){

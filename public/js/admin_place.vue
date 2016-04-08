@@ -10,17 +10,17 @@
 
     			<form>
     				<div class="row">Place Title (where are we?!?)</div>
-  						<input type="text" name="placename" value="">
+  						<input type="text" name="placename" v-model="place.placename">
   					<div class="row gen-margin-top">
   						<button type="button" v-on:click="getLocation()">Get Coordinates</button>
   					</div>
   					<div class="row gen-margin-top">LATITUDE</div>
-  						<input type="text" name="latitude" value="{{latitude}}"><br>
+  						<input type="text" name="latitude" value="{{place.latitude}}"><br>
   					<div class="row gen-margin-top">LONGITUDE</div>
-  						<input type="text" name="longitude" value="{{longitude}}"><br>
+  						<input type="text" name="longitude" value="{{place.longitude}}"><br>
   					{{warning}}
   					<div class="row gen-margin-top">
-  						<input v-on:click.prevent="consoleLog('hello')" type="submit" value="Submit">
+  						<input v-on:click.prevent="submitPlace()" type="submit" value="Submit">
   					</div>
     			</form>
 	
@@ -32,13 +32,19 @@
 
 <script>
 
+var Vue = require('vue');
+Vue.use(require('vue-resource'));
+
 
 export default {
 	data: function() {
 		return {
-			latitude:'',
-			longitude:'',
-			warning:''
+			place: {
+				placename:'',
+				latitude:'',
+				longitude:'',
+				warning:''
+			}
 		}
 	},
 	methods:{
@@ -57,8 +63,13 @@ export default {
 			},
 		showPosition:
 			function(position){
-				this.latitude = position.coords.latitude;
-    			this.longitude = position.coords.longitude;	
+				this.place.latitude = position.coords.latitude;
+    			this.place.longitude = position.coords.longitude;	
+			},
+		submitPlace:
+			function(){
+				this.$http.post('/api/places', this.place)
+					.then(function(success){console.log(success)}, function(err){console.log(err)});
 			}
 		}
 

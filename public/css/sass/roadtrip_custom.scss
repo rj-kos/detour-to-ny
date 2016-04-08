@@ -250,14 +250,27 @@ $desktop-width: 1023px;
 
 }
 
+//map.js
+
+$roadtripPathColor: #26C6DA;
+$roadtripCirclesColor: #0097A7;
+
 .map {
 	stroke-width:1px;
 	.country {
-		stroke:#2b2b2b;
-		fill:white;
+		stroke:white;
+		fill:$gray;
+	}
+	.roadtripPath {
+		stroke:$roadtripPathColor;
+	}
+	.placeCircles {
+		fill:$roadtripCirclesColor;
 	}
 }
 
+
+//admin forms
 .adminFormHolder {
 	margin-top:20px;
 	display:inline-block;

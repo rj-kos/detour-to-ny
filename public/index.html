@@ -39,20 +39,13 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="two-thirds column map_holder"></div>
+            <div class="one column map_holder"></div>
         </div>
     </div>
     
     <div class="container">
         <blogpost v-cloak v-for="blogpost in blogposts" :title="blogpost.title" :content="blogpost.content"></blogpost>
     </div>
-    
-    
-     <button v-on:click="getBPs">Greet</button>
-
-
-     
-      <pre v-cloak>{{ $data | json }}</pre>
     <!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
     <script src="./dist/index.bundle.js"></script>
 

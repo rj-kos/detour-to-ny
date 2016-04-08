@@ -23,5 +23,8 @@ new Vue({
         },
         components: {
         	blogpost:blog
+        },
+        ready (){
+            this.getBPs();
         }
     });

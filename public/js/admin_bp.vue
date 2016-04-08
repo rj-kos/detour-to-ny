@@ -11,8 +11,8 @@
                     <form id="blogpost_form">
                         <div class="row center">
                             <div><b>LOCATION</b></div>
-                            <select>
-                                <option selected="true" disabled="disabled">Where is this post for?</option>
+                            <select v-model="blogpost.placeid">
+                                <option selected="true" disabled="disabled" value="none">Where is this post for?</option>
                                 <option v-for="place in places" value="{{place._id}}">
                                     {{place.placename}}
                                 </option>
@@ -20,12 +20,12 @@
                         </div>
                        <div class="row gen-margin-top center">
                             <div><b>POST TITLE</b></div>
-                            <textarea rows="1" cols="20" class="bp_title_field" type="text" name="title" value=""></textarea>
+                            <textarea rows="1" cols="20" class="bp_title_field" type="text" name="title" v-model="blogpost.title"></textarea>
                         </div>
 
-                        <textarea class="editable gen-margin-top"></textarea>
+                        <textarea class="editable gen-margin-top" v-model="blogpost.content"></textarea>
                         <div class="row gen-margin-top center">
-                            <input type="submit" value="Submit">
+                            <input v-on:click.prevent="submitPost()" type="submit" value="Submit">
                         </div>
                     </form>
     
@@ -34,7 +34,6 @@
                 </div>
             </div>
         </div>
-        <pre style="width:400px;">{{ $data | json }}</pre>
     </div>
     
 </template>
@@ -43,14 +42,20 @@
 
 var MediumEditor = require('medium-editor-webpack');
 
-
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
+
+var $ = require('jquery');
 
 export default {
     data: function() {
         return {
-           places:[]
+           places:[],
+           blogpost: {
+            title:'',
+            content:'',
+            placeid:''
+           }
         }
     },
 
@@ -63,6 +68,13 @@ export default {
                 }, function (response) {
                     console.log('error');
                 });
+            },
+        submitPost:
+            function(){
+                this.blogpost.content = $('div.editable').html();
+
+                this.$http.post('/api/blog', this.blogpost)
+                    .then(function(success){console.log(success)}, function(err){console.log(err)});
             }
     },
 

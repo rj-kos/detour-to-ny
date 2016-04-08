@@ -93,10 +93,21 @@
 	        		},
 
 	        	makeDZ:
-	        		function(el_class){
-	        			new Dropzone('.' + el_class, {url:"/api/image_upload"});
+	        		function(el_class, options){
+
+	        			myDropzone = new Dropzone('.' + el_class, options);
+
+	                    myDropzone.on("queuecomplete", function() {
+	                        myDropzone.options.autoProcessQueue = false;
+	                    });
+
 	        			console.log('makeDZ');
-	        		}
+	        		},
+	            activateDZUpload:
+	                function(){
+	                    myDropzone.options.autoProcessQueue = true;
+	                    myDropzone.processQueue();
+	                }
 	            //getBPs:
 	            //function(){
 	            //    this.$http.get('/api/blog').then(function(blogposts){
@@ -21718,10 +21729,17 @@
 	var Vue = __webpack_require__(1);
 	Vue.use(__webpack_require__(9));
 
+	var $ = __webpack_require__(3);
+
 	exports.default = {
 	    data: function data() {
 	        return {
-	            places: []
+	            places: [],
+	            blogpost: {
+	                title: '',
+	                content: '',
+	                placeid: ''
+	            }
 	        };
 	    },
 
@@ -21732,6 +21750,15 @@
 	                console.log(places.data);
 	            }, function (response) {
 	                console.log('error');
+	            });
+	        },
+	        submitPost: function submitPost() {
+	            this.blogpost.content = $('div.editable').html();
+
+	            this.$http.post('/api/blog', this.blogpost).then(function (success) {
+	                console.log(success);
+	            }, function (err) {
+	                console.log(err);
 	            });
 	        }
 	    },
@@ -27089,7 +27116,7 @@
 /* 33 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n    \n    <div class=\"adminFormHolder two-thirds push-one-sixth column center animated bounceInRight\">\n        <div class=\"bp_wrap left\">\n            <div class=\"row center\">\n                <h2 class=\"gen-margin-top\">Write a new blog post!</h2>\n            </div>\n            <div class=\"row\">\n\n                <form id=\"blogpost_form\">\n                    <div class=\"row center\">\n                        <div><b>LOCATION</b></div>\n                        <select>\n                            <option selected=\"true\" disabled=\"disabled\">Where is this post for?</option>\n                            <option v-for=\"place in places\" value=\"{{place._id}}\">\n                                {{place.placename}}\n                            </option>\n                        </select>\n                    </div>\n                   <div class=\"row gen-margin-top center\">\n                        <div><b>POST TITLE</b></div>\n                        <textarea rows=\"1\" cols=\"20\" class=\"bp_title_field\" type=\"text\" name=\"title\" value=\"\"></textarea>\n                    </div>\n\n                    <textarea class=\"editable gen-margin-top\"></textarea>\n                    <div class=\"row gen-margin-top center\">\n                        <input type=\"submit\" value=\"Submit\">\n                    </div>\n                </form>\n\n                \n    \n            </div>\n        </div>\n    </div>\n    <pre style=\"width:400px;\">{{ $data | json }}</pre>\n</div>\n\n";
+	module.exports = "\n<div class=\"container\">\n    \n    <div class=\"adminFormHolder two-thirds push-one-sixth column center animated bounceInRight\">\n        <div class=\"bp_wrap left\">\n            <div class=\"row center\">\n                <h2 class=\"gen-margin-top\">Write a new blog post!</h2>\n            </div>\n            <div class=\"row\">\n\n                <form id=\"blogpost_form\">\n                    <div class=\"row center\">\n                        <div><b>LOCATION</b></div>\n                        <select v-model=\"blogpost.placeid\">\n                            <option selected=\"true\" disabled=\"disabled\" value=\"none\">Where is this post for?</option>\n                            <option v-for=\"place in places\" value=\"{{place._id}}\">\n                                {{place.placename}}\n                            </option>\n                        </select>\n                    </div>\n                   <div class=\"row gen-margin-top center\">\n                        <div><b>POST TITLE</b></div>\n                        <textarea rows=\"1\" cols=\"20\" class=\"bp_title_field\" type=\"text\" name=\"title\" v-model=\"blogpost.title\"></textarea>\n                    </div>\n\n                    <textarea class=\"editable gen-margin-top\" v-model=\"blogpost.content\"></textarea>\n                    <div class=\"row gen-margin-top center\">\n                        <input v-on:click.prevent=\"submitPost()\" type=\"submit\" value=\"Submit\">\n                    </div>\n                </form>\n\n                \n    \n            </div>\n        </div>\n    </div>\n</div>\n\n";
 
 /***/ },
 /* 34 */
@@ -27121,19 +27148,27 @@
 
 /***/ },
 /* 35 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+
+	var Vue = __webpack_require__(1);
+	Vue.use(__webpack_require__(9));
+
 	exports.default = {
 		data: function data() {
 			return {
-				latitude: '',
-				longitude: '',
-				warning: ''
+				place: {
+					placename: '',
+					latitude: '',
+					longitude: '',
+					warning: ''
+				}
 			};
 		},
 		methods: {
@@ -27148,8 +27183,15 @@
 				}
 			},
 			showPosition: function showPosition(position) {
-				this.latitude = position.coords.latitude;
-				this.longitude = position.coords.longitude;
+				this.place.latitude = position.coords.latitude;
+				this.place.longitude = position.coords.longitude;
+			},
+			submitPlace: function submitPlace() {
+				this.$http.post('/api/places', this.place).then(function (success) {
+					console.log(success);
+				}, function (err) {
+					console.log(err);
+				});
 			}
 		}
 
@@ -27159,7 +27201,7 @@
 /* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "\n  <div class=\"container\">\n  \t\n  \t<div class=\"adminFormHolder one-third push-one-third column center animated bounceInRight\">\n\n  \t\t<div class=\"row\">\n      \t\t<h2 class=\"gen-margin-top\">Register a new place!</h2>\n  \t\t</div>\n  \t\t<div class=\"row\">\n\n  \t\t\t<form>\n  \t\t\t\t<div class=\"row\">Place Title (where are we?!?)</div>\n\t\t\t\t\t\t<input type=\"text\" name=\"placename\" value=\"\">\n\t\t\t\t\t<div class=\"row gen-margin-top\">\n\t\t\t\t\t\t<button type=\"button\" v-on:click=\"getLocation()\">Get Coordinates</button>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"row gen-margin-top\">LATITUDE</div>\n\t\t\t\t\t\t<input type=\"text\" name=\"latitude\" value=\"{{latitude}}\"><br>\n\t\t\t\t\t<div class=\"row gen-margin-top\">LONGITUDE</div>\n\t\t\t\t\t\t<input type=\"text\" name=\"longitude\" value=\"{{longitude}}\"><br>\n\t\t\t\t\t{{warning}}\n\t\t\t\t\t<div class=\"row gen-margin-top\">\n\t\t\t\t\t\t<input v-on:click.prevent=\"consoleLog('hello')\" type=\"submit\" value=\"Submit\">\n\t\t\t\t\t</div>\n  \t\t\t</form>\n\n  \t\t</div>\n  \t</div>\n  </div>\n  \n";
+	module.exports = "\n  <div class=\"container\">\n  \t\n  \t<div class=\"adminFormHolder one-third push-one-third column center animated bounceInRight\">\n\n  \t\t<div class=\"row\">\n      \t\t<h2 class=\"gen-margin-top\">Register a new place!</h2>\n  \t\t</div>\n  \t\t<div class=\"row\">\n\n  \t\t\t<form>\n  \t\t\t\t<div class=\"row\">Place Title (where are we?!?)</div>\n\t\t\t\t\t\t<input type=\"text\" name=\"placename\" v-model=\"place.placename\">\n\t\t\t\t\t<div class=\"row gen-margin-top\">\n\t\t\t\t\t\t<button type=\"button\" v-on:click=\"getLocation()\">Get Coordinates</button>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"row gen-margin-top\">LATITUDE</div>\n\t\t\t\t\t\t<input type=\"text\" name=\"latitude\" value=\"{{place.latitude}}\"><br>\n\t\t\t\t\t<div class=\"row gen-margin-top\">LONGITUDE</div>\n\t\t\t\t\t\t<input type=\"text\" name=\"longitude\" value=\"{{place.longitude}}\"><br>\n\t\t\t\t\t{{warning}}\n\t\t\t\t\t<div class=\"row gen-margin-top\">\n\t\t\t\t\t\t<input v-on:click.prevent=\"submitPlace()\" type=\"submit\" value=\"Submit\">\n\t\t\t\t\t</div>\n  \t\t\t</form>\n\n  \t\t</div>\n  \t</div>\n  </div>\n  \n";
 
 /***/ },
 /* 37 */
@@ -27191,16 +27233,50 @@
 
 /***/ },
 /* 38 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+
+	var Vue = __webpack_require__(1);
+	Vue.use(__webpack_require__(9));
+
 	exports.default = {
+
+	    data: function data() {
+	        return {
+	            places: [],
+	            selectedPlace: '',
+	            warning: ''
+	        };
+	    },
+
+	    methods: {
+	        getPlaces: function getPlaces() {
+	            this.$http.get('/api/places').then(function (places) {
+	                this.places = places.data;
+	                console.log(places.data);
+	            }, function (response) {
+	                console.log('error');
+	            });
+	        },
+	        dzUpload: function dzUpload() {
+	            if (this.selectedPlace != 'none') {
+	                this.warning = '';
+	                this.$parent.$options.methods.activateDZUpload();
+	            } else {
+	                this.warning = 'YOU MUST SELECTED A LOCATION!';
+	            }
+	        }
+	    },
+
 	    ready: function ready() {
-	        this.$parent.$options.methods.makeDZ('dropzone');
+	        this.$parent.$options.methods.makeDZ('dropzone', { url: "/api/image_upload", autoProcessQueue: false, parallelUploads: 3 });
+	        this.getPlaces();
 	    }
 	};
 
@@ -27208,7 +27284,7 @@
 /* 39 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n    <div class=\"row\">\n        <h1>gallery</h1>\n    </div>\n    <form action=\"/api/image_upload\" class=\"dropzone\" id=\"my-awesome-dropzone\">\n    </form>\n</div> \n\n\n";
+	module.exports = "\n<div class=\"container\">\n    \n    <div class=\"adminFormHolder two-thirds push-one-sixth column center animated bounceInRight\">\n\n        <div class=\"row\">\n            <h2 class=\"gen-margin-top\">Got new pics!??!</h2>\n        </div>\n        <div class=\"row center\">\n            <div><b>LOCATION</b></div>\n            <select v-model=\"selectedPlace\">\n                <option selected=\"true\" disabled=\"disabled\" value=\"none\">Where are these pics from?</option>\n                <option v-for=\"place in places\" value=\"{{place._id}}\">\n                    {{place.placename}}\n                </option>\n            </select>\n        </div>\n        <div class=\"row gen-margin-top\">\n\n            <form action=\"/api/image_upload\" class=\"dropzone\" id=\"my-awesome-dropzone\">   \n                <input type=\"text\" name=\"placeid\" value=\"{{selectedPlace}}\" style=\"display:none;\">\n            </form>\n            <div class=\"row gen-margin-top\">\n                <input type=\"submit\" value=\"Submit\" v-on:click=\"dzUpload()\"> \n                <br>{{warning}}\n            </div>\n\n        </div>\n        <pre v-cloak>{{ $data | json }}</pre>\n    </div>\n</div>\n\n\n";
 
 /***/ }
 /******/ ]);
