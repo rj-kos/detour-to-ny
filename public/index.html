@@ -2,53 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <link rel="stylesheet" type="text/css" href="./dist/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="./dist/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.css">
     <link rel="stylesheet" type="text/css" href="./css/build/bundle.css">
     <title>Detour To NY</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
 </head>
 
 <body id="app">
     <div class="one column mainNavWrap">
             <div class="nav_logo_holder">
-                <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
-                <a href="#" class="collapsed_nav_link"><img width="1.5" height="1.4" src="../img/menu_hamburger.svg" class="nav_menu_ham"></a>
+                <a v-link="{path:'/'}">
+                    <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
+                </a>
+                <div class="collapsed_nav_link"><img width="1.5" height="1.4" src="../img/menu_hamburger.svg" class="nav_menu_ham"></div>
             </div>
         <div class="container mainNav">
             <div class="row">
                 <ul class="one column">
-                    <li class="one-fifth column nav_link">
-                        <h4>HOME</h4>
+                    <li class="one-fifth column nav_link" v-link-active>
+                        <a v-link="{path: '/blog'}">
+                            <h4>BLOG</h4>
+                        </a>
                     </li>
-                    <li class="one-fifth column nav_link">
-                        <h4>PLACES</h4>
+                    <li class="one-fifth column nav_link" v-link-active>
+                            <h4>GALLERY</h4>
                     </li>
                     <li class="one-fifth column nav_link desktop_nav_logo">
-                        <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
+                        <a v-link="{path:'/'}">
+                            <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
+                        </a>
                     </li>
                     <li class="one-fifth column nav_link">
-                        <h4>GALLERY</h4>
+                        <h4>STATS</h4>
                     </li>
                     <li class="one-fifth column nav_link">
-                        <h4>PLACEHOLDER</h4>
+                        <h4>ABOUT</h4>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="one column map_holder"></div>
-        </div>
+    <div class="view_container">
+        <router-view></router-view>
     </div>
     
-    <div class="container">
-        <blogpost v-cloak v-for="blogpost in blogposts" :title="blogpost.title" :content="blogpost.content"></blogpost>
-    </div>
-    <!--<script src="http://d3js.org/topojson.v1.min.js"></script>-->
-    <script src="./dist/index.bundle.js"></script>
+    <!-- <div class="container">
+        <blogpost v-cloak v-for="blogpost in blogposts" :title="blogpost.title" :content="blogpost.content" :featureimage="blogpost.featureImage"></blogpost>
+    </div> -->
 
+    
+    <script src="./dist/index.bundle.js"></script>
+    
+    
 
 </body>
 </html>

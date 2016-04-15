@@ -1,7 +1,9 @@
 //fonts
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+//@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 body {
-	font-family: 'Roboto', sans-serif;
+	//font-family: 'Roboto', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -168,6 +170,8 @@ $desktop-width: 1023px;
 
 .mainNavWrap {
 	box-shadow:0 1px 3px #BBBBBB;
+	position:fixed;
+	background:white;
 
 	.nav_logo {
 		width:75px;
@@ -191,6 +195,10 @@ $desktop-width: 1023px;
 
 	.desktop_nav_logo {
 		display:none;
+
+		.v-link-active {
+			background:white;
+		}
 	}
 
 
@@ -198,7 +206,7 @@ $desktop-width: 1023px;
 
 	@include tablet_and_desktop {
 		.nav_logo {
-			width:100px;
+			width:93px;
 		}
 		.nav_logo_holder {
 			float:left;
@@ -212,10 +220,15 @@ $desktop-width: 1023px;
 	}
 }
 
+.view_container {
+	padding-top:70px;
+}
+
 .mainNav {
 
 	display:none;
 	text-align:center;
+	color:$gray;
 	
 	ul{
 		list-style:none;
@@ -223,14 +236,24 @@ $desktop-width: 1023px;
 		padding:0;
 	}
 
-	.activeAdmin {
-		background:$gray;
-		color:white;
+	.nav_link {
+		a {
+			color:$gray;
+			text-decoration: none;
+		}
 	}
 
-	.nav_link:hover {
-		cursor: pointer;
+	.v-link-active {
+		background:$gray;
+		color:white;
+
+		a{
+			text-decoration: none;
+			color:white;
+		}
 	}
+
+
 
 	@include tablet_and_desktop {
 
@@ -253,7 +276,7 @@ $desktop-width: 1023px;
 //map.js
 
 $roadtripPathColor: #26C6DA;
-$roadtripCirclesColor: #0097A7;
+$roadtripCirclesColor: #26C6DA;
 
 .map {
 	stroke-width:1px;
@@ -265,10 +288,53 @@ $roadtripCirclesColor: #0097A7;
 		stroke:$roadtripPathColor;
 	}
 	.placeCircles {
-		fill:$roadtripCirclesColor;
+		fill:$roadtripPathColor;
+	}
+	.placeCircles:hover {
+		r:12px;
+		cursor: pointer;
+		stroke:white;
+		stroke-width:2px;
 	}
 }
 
+.map_tt {
+
+	width:200px;
+	background:white;
+	text-align:center;
+	@include card(1);
+
+	.map_tt_title {
+		font-size:1.5em;
+		font-weight:bold;
+	}
+	img{
+		width:100%;
+	}
+	.tt_img_loader{
+		width:100%;
+		height:100px;
+		background:$gray;
+
+		img {
+			height:40px;
+			margin-top:30px;
+		}
+	}
+}
+
+.map_holder {
+	margin-top:0px;
+}
+
+.home_image_section {
+	background: $gray;
+
+	.slick-slider {
+		margin:15px 0;
+	}
+}
 
 //admin forms
 .adminFormHolder {
@@ -295,5 +361,59 @@ $roadtripCirclesColor: #0097A7;
 	}
 }
 
+.blog_post_wrap {
+	margin-top:5px;
+	display:inline-block;
+	max-width:100%;
+	@include tablet_and_desktop {
+		max-width:65%;
+	}
+}
 
+.blogpostholder{
+	img{
+		max-width:100%;
+	}
+	a {
+		color:inherit;
+	}
+	.post_title, .post_place {
+		margin:5px 0px;
+	}
 
+	.post_title {
+		text-transform:uppercase;
+		text-decoration: underline;
+		
+	}
+
+	.post_date {
+		margin-top:5px;
+		display:block;
+
+	}
+}
+
+.image_slider {
+	.slider_img_wrap {
+		text-align:center;
+		@include desktop {
+			height:200px;
+		}
+	}
+	img{
+		height:auto;
+		width:100%;
+		display:inline-block;
+		@include card(1);
+
+		@include desktop {
+			height:100%;
+			width:auto;
+		}
+	}
+}
+
+.slick-track {
+margin: 0 auto;
+}

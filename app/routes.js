@@ -2,8 +2,13 @@ var uuid = require('node-uuid');
 
 var multer = require('multer');
 
+var fs = require('fs');
+var gm = require('gm').subClass({imageMagick: true});
+
+var uploadDirectory = './public/uploads/';
+
 var storage = multer.diskStorage({
-  destination: 'public/uploads/',
+  destination: uploadDirectory,
   filename: function (req, file, cb) {
     cb(null, uuid.v4() + '.jpg')
   }
@@ -20,12 +25,23 @@ var Albums = require('./models/albums');
 
         app.get('/api/blog', function(req, res) {
            
-           Blog.find(function(err, blogposts) {
+           Blog.find().sort({date: -1}).find(function(err, blogposts) {
 
                if (err)
                    res.send(err)
 
                res.json(blogposts); 
+           });
+        });
+
+        app.get('/api/blog/:blogpost', function(req, res) {
+           
+           Blog.findOne({_id:req.params.blogpost},function(err, blogpost) {
+
+               if (err)
+                   res.send(err)
+
+               res.json(blogpost); 
            });
         });
 
@@ -38,6 +54,49 @@ var Albums = require('./models/albums');
 
                res.json(places); 
            });
+        });
+
+        app.get('/api/places/:place', function(req, res) {
+           
+           Places.findOne({_id:req.params.place},function(err, place) {
+
+               if (err)
+                   res.send(err)
+
+               res.json(place); 
+           });
+        });
+
+
+        app.get('/api/images', function(req, res) {
+           
+           Albums.find(function(err, albums) {
+
+               if (err)
+                   res.send(err)
+
+               res.json(albums); 
+           });
+        });
+
+       app.get('/api/images/:place', function(req, res) {
+           
+           Albums.findOne({placeid:req.params.place},function(err, album) {
+
+               if (err)
+                   res.send(err)
+
+               res.json(album); 
+           });
+        });
+
+        app.get('/api/allimages',function(req,res){
+          fs.readdir(uploadDirectory,function(err,files){
+            if(err)
+              res.send(err)
+
+            res.json(files);
+          });
         });
 
 
@@ -66,9 +125,11 @@ var Albums = require('./models/albums');
 
         });
 
-        app.post('/api/blog', function(req,res){
 
-          //res.contentType('json');
+        app.post('/api/blog', upload.single( 'file' ), function(req,res,next){
+        
+          console.log(req.file);
+          console.log(req.body.placeid);
 
           var bp = new Blog();
           if(req.body.title)
@@ -77,13 +138,28 @@ var Albums = require('./models/albums');
             bp.content = req.body.content;
           if(req.body.placeid)
             bp.placeid = req.body.placeid;
+          if(req.file.filename)
+            bp.featureImage = req.file.filename;
 
           bp.save(function(err){
             if (err)
               res.send(err);
 
-            res.json({message: 'Blog Post Created'});
+            //res.json({message: 'Blog Post Created'});
+
+            var fullImagePath = uploadDirectory + req.file.filename;
+
+            gm(fullImagePath)
+              .resize(1000)
+              .noProfile()
+              .write(fullImagePath, function (err) {
+                if (!err) console.log('done');
+              });
+
+            return res.status( 200 ).send( req.file );
           });
+
+          
 
         });
 
@@ -112,6 +188,15 @@ var Albums = require('./models/albums');
                     console.log("Successfully added");
             }
           });
+
+          var fullImagePath = uploadDirectory + req.file.filename;
+
+            gm(fullImagePath)
+              .resize(1000)
+              .noProfile()
+              .write(fullImagePath, function (err) {
+                if (!err) console.log('done');
+              });
 
           return res.status( 200 ).send( req.file );
 

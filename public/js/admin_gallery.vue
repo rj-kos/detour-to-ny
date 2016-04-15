@@ -41,6 +41,8 @@
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
 
+var $ = require('jquery');
+
 
 export default {
 
@@ -72,6 +74,14 @@ export default {
                     this.warning = 'YOU MUST SELECTED A LOCATION!'
                 }
             }
+    },
+    route:{
+      deactivate: function(transition){
+        $('.adminFormHolder').addClass('animated bounceOutLeft').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
+              transition.next();             
+            });
+        
+      }
     },
 
     ready () {

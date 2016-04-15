@@ -8,7 +8,7 @@
                 </div>
                 <div class="row">
     
-                    <form id="blogpost_form">
+                   
                         <div class="row center">
                             <div><b>LOCATION</b></div>
                             <select v-model="blogpost.placeid">
@@ -22,12 +22,21 @@
                             <div><b>POST TITLE</b></div>
                             <textarea rows="1" cols="20" class="bp_title_field" type="text" name="title" v-model="blogpost.title"></textarea>
                         </div>
+                        <form action="/api/blog" class="dropzone" id="my-awesome-dropzone">   
+                            <div class="dz-message">Select one photo as the blogpost banner image</div>
+                            <input type="text" name="placeid" value="{{blogpost.placeid}}" style="display:none;">
+                            <input type="text" name="title" value="{{blogpost.title}}" style="display:none;">
+                            <input type="text" name="content" value="{{blogpost.content}}" style="display:none;">
+                        </form>
+                        
 
                         <textarea class="editable gen-margin-top" v-model="blogpost.content"></textarea>
                         <div class="row gen-margin-top center">
-                            <input v-on:click.prevent="submitPost()" type="submit" value="Submit">
+                            <input v-on:click.prevent="submitPost(uploadDZ)" type="submit" value="Submit">
                         </div>
-                    </form>
+                    
+
+                    
     
                     
         
@@ -70,16 +79,40 @@ export default {
                 });
             },
         submitPost:
-            function(){
-                this.blogpost.content = $('div.editable').html();
+            function(callback){
+                if(this.blogpost.placeid != 'none'){
+                    this.warning = '';
 
-                this.$http.post('/api/blog', this.blogpost)
-                    .then(function(success){console.log(success)}, function(err){console.log(err)});
+                     //have to do this because the medium-editor is instantiated apart from vue and I can't bind a v-model to it
+                    this.blogpost.content = $('div.editable').html();
+
+                    if(this.blogpost.content != ''){
+                        setTimeout(function(){callback();}, 1000);
+                    }
+                }
+                else{
+                    this.warning = 'YOU MUST SELECTED A LOCATION!'
+                }
+            },
+
+        uploadDZ:
+            function(){
+                this.$parent.$options.methods.activateDZUpload();
             }
+    },
+
+    route:{
+      deactivate: function(transition){
+        $('.adminFormHolder').addClass('animated bounceOutLeft').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
+              transition.next();             
+            });
+        
+        }
     },
 
     ready () {
         var editor = new MediumEditor('.editable');
+        this.$parent.$options.methods.makeDZ('dropzone', {url:"/api/blog", autoProcessQueue: false, parallelUploads: 3, maxFiles:1});
         this.getPlaces();
     }
    

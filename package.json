@@ -5,6 +5,7 @@
     "body-parser": "~1.4.2",
     "d3": "^3.5.16",
     "express": "~4.5.1",
+    "gm": "^1.22.0",
     "jquery": "^2.2.2",
     "medium-editor": "^5.15.0",
     "medium-editor-webpack": "^0.2.0",
@@ -15,6 +16,7 @@
     "topojson": "^1.6.24",
     "vue": "^1.0.20",
     "vue-resource": "^0.7.0",
+    "vue-router": "^0.7.13",
     "webpack": "^1.12.14"
   },
   "devDependencies": {

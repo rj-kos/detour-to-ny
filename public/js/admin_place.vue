@@ -15,9 +15,9 @@
   						<button type="button" v-on:click="getLocation()">Get Coordinates</button>
   					</div>
   					<div class="row gen-margin-top">LATITUDE</div>
-  						<input type="text" name="latitude" value="{{place.latitude}}"><br>
+  						<input type="text" name="latitude" v-model="place.latitude"><br>
   					<div class="row gen-margin-top">LONGITUDE</div>
-  						<input type="text" name="longitude" value="{{place.longitude}}"><br>
+  						<input type="text" name="longitude" v-model="place.longitude"><br>
   					{{warning}}
   					<div class="row gen-margin-top">
   						<input v-on:click.prevent="submitPlace()" type="submit" value="Submit">
@@ -25,6 +25,7 @@
     			</form>
 	
     		</div>
+        <pre v-cloak>{{ $data | json }}</pre>
     	</div>
     </div>
     
@@ -34,6 +35,8 @@
 
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
+
+var $ = require('jquery');
 
 
 export default {
@@ -71,7 +74,15 @@ export default {
 				this.$http.post('/api/places', this.place)
 					.then(function(success){console.log(success)}, function(err){console.log(err)});
 			}
-		}
+		},
+    route:{
+      deactivate: function(transition){
+        $('.adminFormHolder').addClass('animated bounceOutLeft').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
+              transition.next();             
+            });
+        
+      }
+    }
 
 	
 

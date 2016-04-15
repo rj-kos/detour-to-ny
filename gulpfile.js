@@ -9,7 +9,7 @@ var webpack		= require('webpack-stream');
 
 gulp.task('css-concat',function(){
 
-	return gulp.src(['./public/css/assets/normalize.css','./public/css/assets/roadtrip_custom.css'])
+	return gulp.src(['./public/css/assets/normalize.css','./public/css/assets/lightbox.css','./public/css/assets/roadtrip_custom.css'])
 		.pipe(concatCss('bundle.css'))
 		.pipe(gulp.dest('./public/css/build/'));
 
