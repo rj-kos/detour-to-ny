@@ -53,6 +53,8 @@
 	var home = __webpack_require__(41);
 	var blog = __webpack_require__(51);
 	var blogpost = __webpack_require__(54);
+	var gallery = __webpack_require__(57);
+	var gallery_place = __webpack_require__(60);
 
 	var $ = __webpack_require__(4);
 
@@ -108,6 +110,12 @@
 	        },
 	        '/blog/:blogpost': {
 	            component:blogpost
+	        },
+	        '/gallery':{
+	            component:gallery
+	        },
+	        '/gallery/:place':{
+	            component:gallery_place
 	        }
 	        //  '/user/:username': {
 	        //    component: {
@@ -35237,7 +35245,7 @@
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"left post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
+	module.exports = "\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"left post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n    <pre v-cloak>{{ $data | json }}</pre>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
 
 /***/ },
 /* 54 */
@@ -35340,6 +35348,205 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\">\n            <img :src=\"'/uploads/' + blogpost.featureImage\">\n                <h2 class=\"left post_title\">{{blogpost.title}}</h2>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n            <div>\n            {{{blogpost.content}}}\n            </div>\n        </div>\n    </div>\n</div>\n<imageslider :images=\"album.imagepaths\"></imageslider>\n";
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(58)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] public/js/gallery.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(59)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/vagrant/app/public/js/gallery.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 58 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+
+	    data: function data() {
+	        return {
+	            places: {},
+	            albums: []
+	        };
+	    },
+
+	    methods: {
+	        buildPlacesDict: function buildPlacesDict() {
+	            this.$http.get('/api/places').then(function (places) {
+
+	                var dict = {};
+
+	                for (var i = 0; i < places.data.length; i++) {
+
+	                    var id = places.data[i]._id;
+	                    var placename = places.data[i].placename;
+
+	                    dict[id] = placename;
+	                }
+
+	                console.log(dict);
+
+	                this.places = dict;
+	            }, function (response) {
+	                console.log('error');
+	            });
+	        },
+	        getAlbums: function getAlbums() {
+	            this.$http.get('/api/images').then(function (albums) {
+
+	                for (var i = 0; i < albums.data.length; i++) {
+	                    var id = albums.data[i].placeid;
+	                    var placename = this.places[id];
+	                    var galMenuImg = albums.data[i].imagepaths[Math.floor(Math.random() * (albums.data[i].imagepaths.length - 1))];
+
+	                    albums.data[i].galMenuImg = galMenuImg;
+	                    albums.data[i].placename = placename;
+	                }
+
+	                this.albums = albums.data;
+	            }, function (response) {
+	                console.log('error');
+	            });
+	        }
+
+	    },
+
+	    ready: function ready() {
+	        this.buildPlacesDict();
+	    },
+
+	    watch: {
+	        'places': function places(newVal, oldVal) {
+	            this.getAlbums();
+	        }
+	    }
+
+	};
+
+/***/ },
+/* 59 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"container\">\n    <div class=\"half push-one-fourth gallery_place_holder\" v-for=\"album in albums\">\n        <a v-link=\"{path:'/gallery/' + album.placeid}\">\n            <img class=\"one column\" :src=\"'./uploads/' + album.galMenuImg\">\n            <h3 class=\"gallery_place_title\">{{album.placename}}</h3>\n        </a>\n    </div>\n            <pre v-cloak>{{ $data | json }}</pre>\n</div>\n\n";
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(61)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] public/js/gallery_place.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(62)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/vagrant/app/public/js/gallery_place.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+
+	var lightbox = __webpack_require__(47);
+
+	exports.default = {
+
+	    data: function data() {
+	        return {
+	            album: [],
+	            placename: ''
+	        };
+	    },
+
+	    methods: {
+	        getAlbum: function getAlbum() {
+	            this.$http.get('/api/images/' + this.$route.params.place).then(function (album) {
+	                var newImagePaths = [];
+	                var pathObj = {};
+	                for (var i = 0; i < album.data.imagepaths.length; i++) {
+	                    if (i % 2 == 0) {
+	                        pathObj.firstPath = album.data.imagepaths[i];
+	                    } else {
+	                        pathObj.secondPath = album.data.imagepaths[i];
+	                        newImagePaths.push(pathObj);
+	                        pathObj = {};
+	                    }
+	                }
+
+	                album.data.imagepaths = newImagePaths;
+
+	                this.album = album.data;
+	            }, function (response) {
+	                console.log('error');
+	            });
+	        },
+	        getPlaceName: function getPlaceName() {
+	            this.$http.get('/api/places/' + this.$route.params.place).then(function (place) {
+	                this.placename = place.data.placename;
+	            }, function (response) {
+	                console.log('error');
+	            });
+	        }
+
+	    },
+
+	    ready: function ready() {
+	        this.getAlbum();
+	        this.getPlaceName();
+	    }
+	};
+
+/***/ },
+/* 62 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"container\">\n<h2>{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }
 /******/ ]);

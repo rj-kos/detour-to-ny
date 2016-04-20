@@ -71,7 +71,8 @@ body {
 .mainNavWrap {
   box-shadow: 0 1px 3px #BBBBBB;
   position: fixed;
-  background: white; }
+  background: white;
+  z-index: 10; }
   .mainNavWrap .nav_logo {
     width: 75px;
     height: auto; }
@@ -233,3 +234,24 @@ body {
 
 .slick-track {
   margin: 0 auto; }
+
+.gallery_place_holder {
+  display: inline-block;
+  position: relative; }
+  .gallery_place_holder .gallery_place_title {
+    position: absolute;
+    color: white;
+    margin: 0;
+    top: 12%;
+    left: -10px;
+    box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    transform: translateY(-50%);
+    background: #2b2b2b;
+    padding: 4px; }
+
+.place_gallery_image_holder img {
+  width: 100%; }
+  @media (min-width: 768px) {
+    .place_gallery_image_holder img {
+      width: 95%; } }

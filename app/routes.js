@@ -56,6 +56,17 @@ var Albums = require('./models/albums');
            });
         });
 
+        app.get('/api/places/:place', function(req, res){
+
+          Places.findOne({_id:req.params.place}, function(err,place){
+              if(err)
+                res.send(err)
+
+              res.json(place);
+          });
+
+        });
+
         app.get('/api/places/:place', function(req, res) {
            
            Places.findOne({_id:req.params.place},function(err, place) {
@@ -70,7 +81,10 @@ var Albums = require('./models/albums');
 
         app.get('/api/images', function(req, res) {
            
-           Albums.find(function(err, albums) {
+           Albums.find().sort({date: -1}).find(function(err, albums) {
+
+
+            //Albums.find().sort({date: 'desc'}).exec(function(err, docs) { ... });
 
                if (err)
                    res.send(err)
@@ -178,16 +192,34 @@ var Albums = require('./models/albums');
 
         app.post('/api/image_upload', upload.single( 'file' ), function(req,res,next){
         
-          console.log(req.file);
-          console.log(req.body.placeid);
-
-          Albums.update({placeid: req.body.placeid}, {$push: {imagepaths: req.file.filename}}, {upsert:true}, function(err){
-            if(err){
-                    console.log(err);
-            }else{
-                    console.log("Successfully added");
+          Albums.count({placeid: req.body.placeid}, function(err,count){
+            if(count>0){
+              Albums.update({placeid: req.body.placeid}, {$push: {imagepaths: req.file.filename}}, {upsert:true}, function(err){
+              if(err){
+                      console.log(err);
+              }else{
+                      console.log("Successfully added");
+              }
+            });
             }
-          });
+            else{
+              var album = new Albums();
+              if(req.body.placeid)
+                album.placeid=req.body.placeid;
+              if(req.file.filename)
+                album.imagepaths=[req.file.filename];
+
+              album.save(function(err){
+                if(err)
+                  res.send(err);
+              });
+
+            }
+
+
+          });          
+
+            
 
           var fullImagePath = uploadDirectory + req.file.filename;
 

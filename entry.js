@@ -7,6 +7,8 @@ Vue.use(VueRouter);
 var home = require('./public/js/home.vue');
 var blog = require('./public/js/blog.vue');
 var blogpost = require('./public/js/blogpost.vue');
+var gallery = require('./public/js/gallery.vue');
+var gallery_place = require('./public/js/gallery_place.vue');
 
 var $ = require('jquery');
 
@@ -62,6 +64,12 @@ var App = Vue.extend({
         },
         '/blog/:blogpost': {
             component:blogpost
+        },
+        '/gallery':{
+            component:gallery
+        },
+        '/gallery/:place':{
+            component:gallery_place
         }
         //  '/user/:username': {
         //    component: {
