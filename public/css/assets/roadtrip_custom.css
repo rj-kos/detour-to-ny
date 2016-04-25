@@ -168,6 +168,15 @@ body {
     .map_tt .tt_img_loader img {
       height: 40px;
       margin-top: 30px; }
+  .map_tt .map_tt_close {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    background: #2b2b2b;
+    padding: 2px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer; }
 
 .map_holder {
   margin-top: 0px; }

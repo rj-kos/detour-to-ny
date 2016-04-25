@@ -101,7 +101,7 @@ export default {
                     .style("display", "none")
                     .text("a simple tooltip")
                     .attr("class","map_tt_wrap")
-                    .html('<div class="map_tt"><a><div class="map_tt_title"></div><div class="tt_img_wrap"><div class="tt_img_holder"></div><div class="tt_img_loader"><img src="./img/oval.svg"></div></div></a></div>');
+                    .html('<div class="map_tt"><a><div class="map_tt_title"></div><div class="tt_img_wrap"><div class="tt_img_holder"></div><div class="tt_img_loader"><img src="./img/oval.svg"></div></div></a><div class="map_tt_close">CLOSE</div></div>');
             
 
                 var projection = d3.geo.albersUsa()
@@ -217,6 +217,10 @@ export default {
                     });
 //
                   });
+
+                $('.map_tt_close').click(function(){
+                    $('.map_tt_wrap').hide();
+                });
 
 
                     
