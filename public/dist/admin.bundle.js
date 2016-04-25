@@ -85,6 +85,13 @@
 	                    myDropzone.processQueue();
 	                } 
 	            
+	        },
+	        ready () {
+	    
+	        $('.collapsed_nav_link').click(function(){
+	            console.log('sliding');
+	            $('.mainNav').slideToggle();
+	            });
 	        }   
 	         
 	    });
