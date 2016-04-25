@@ -231,6 +231,13 @@ body {
   margin-top: 5px;
   display: block; }
 
+.image_slider button {
+  display: block; }
+
+@media (max-width: 767px) {
+  .image_slider button {
+    display: none !important; } }
+
 .image_slider .slider_img_wrap {
   text-align: center; }
   @media (min-width: 1023px) {

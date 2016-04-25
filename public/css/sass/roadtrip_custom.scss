@@ -417,6 +417,18 @@ $roadtripCirclesColor: #26C6DA;
 }
 
 .image_slider {
+
+	button {
+		display:block;
+		
+	}
+	@media (max-width:767px) {
+		button{
+			display:none !important;
+		}
+	}
+
+
 	.slider_img_wrap {
 		text-align:center;
 		@include desktop {
