@@ -18,9 +18,10 @@ mongoose.connect(db.url);
 //sessions
 var session = require('express-session');
 var MongoStore = require('connect-mongo/es5')(session);
+var secretWord = require('./config/secret');
 
 app.use(session({
-    secret: 'creamcheesesandwich',
+    secret: secretWord.secret,
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection, ttl: 1 * 24 * 60 * 60 })
