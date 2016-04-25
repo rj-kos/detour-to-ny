@@ -12,7 +12,6 @@
                 <h4 class="post_date">{{blogpost.date}}</h4>
             </div>
         </div>
-        <pre v-cloak>{{ $data | json }}</pre>
     </div>
 
     <!--<pre v-cloak>{{ $data | json }}</pre> -->

@@ -7,13 +7,14 @@
                     <img :src="'./uploads/' + imageObj.firstPath"> 
                 </a>
             </div>
-            <div class="half column place_gallery_image_holder center">
+            <div class="half column place_gallery_image_holder center" v-if="imageObj.secondPath">
                 <a :href="'./uploads/' + imageObj.secondPath" data-lightbox="roadtrip">
                     <img :src="'./uploads/' + imageObj.secondPath"> 
                 </a>
             </div>
         </div>
     </div>
+    <!--<pre v-cloak>{{ $data | json }}</pre>-->
 </template>
 
 <script>
@@ -37,7 +38,11 @@ export default {
                     var newImagePaths = [];
                     var pathObj = {};
                     for(var i=0; i<album.data.imagepaths.length; i++){
-                        if(i%2==0){
+                        if(i%2==0 && i==(album.data.imagepaths.length-1)){
+                            pathObj.firstPath = album.data.imagepaths[i];
+                            newImagePaths.push(pathObj);
+                        }
+                        else if(i%2==0){
                             pathObj.firstPath = album.data.imagepaths[i];
                         }
                         else {

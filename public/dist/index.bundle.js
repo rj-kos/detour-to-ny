@@ -24345,9 +24345,10 @@
 	                }
 	            }
 
-	            function insertTooltipPlace(place) {
+	            function insertTooltipPlace(place, id) {
 
 	                $('.map_tt_title').text(place);
+	                $('.map_tt a').attr('href', '/gallery/' + id);
 	            }
 
 	            function insertTooltipImg(image) {
@@ -24360,7 +24361,7 @@
 	                });
 	            }
 
-	            var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10").style("display", "none").text("a simple tooltip").attr("class", "map_tt_wrap").html('<div class="map_tt"><div class="map_tt_title"></div><div class="tt_img_wrap"><div class="tt_img_holder"></div><div class="tt_img_loader"><img src="./img/oval.svg"></div></div></div>');
+	            var tooltip = d3.select("body").append("div").style("position", "absolute").style("z-index", "10").style("display", "none").text("a simple tooltip").attr("class", "map_tt_wrap").html('<div class="map_tt"><a><div class="map_tt_title"></div><div class="tt_img_wrap"><div class="tt_img_holder"></div><div class="tt_img_loader"><img src="./img/oval.svg"></div></div></a></div>');
 
 	            var projection = d3.geo.albersUsa().translate([0, 0]).scale(1);
 
@@ -24420,14 +24421,22 @@
 	                        return originalWidth / 100 + 'px';
 	                    }).on("mouseover", function (d) {
 	                        $(".tt_img_holder").html('');
-	                        insertTooltipPlace(d.placename);
+	                        insertTooltipPlace(d.placename, d._id);
 	                        insertTooltipImg(findImagePath(d._id));
 	                        $(".tt_img_loader").css("display", "block");
-	                        return $('.map_tt_wrap').stop().fadeIn().css({ "display": "block", "top": event.pageY - 10 + "px", "left": event.pageX + 10 + "px" });
+	                        return $('.map_tt_wrap').stop().fadeIn().css({ "display": "block", "top": event.pageY + 10 + "px", "left": ttipX() });
 	                    }).on("mouseout", function () {
 	                        return $('.map_tt_wrap').stop().fadeOut();
 	                    });
 	                    ;
+
+	                    function ttipX() {
+	                        if ($(window).width() - event.pageX > 210) {
+	                            return event.pageX + 10 + "px";
+	                        } else {
+	                            return event.pageX - 210 + "px";
+	                        }
+	                    };
 
 	                    $('.map_tt_wrap').stop().hover(function () {
 	                        console.log('hovering');
@@ -35139,7 +35148,7 @@
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"one column map_holder\"></div>\n    </div>\n</div>\n\n<imageslider :images=\"sliderimages\"></imageslider>\n\n";
+	module.exports = "\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"one column map_holder\"></div>\n    </div>\n</div>\n\n<imageslider :images=\"sliderimages\"></imageslider>\n\n<!--<pre v-cloak>{{ $data | json }}</pre>-->\n\n";
 
 /***/ },
 /* 51 */
@@ -35245,7 +35254,7 @@
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"left post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n    <pre v-cloak>{{ $data | json }}</pre>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
+	module.exports = "\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"left post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
 
 /***/ },
 /* 54 */
@@ -35452,7 +35461,7 @@
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n    <div class=\"half push-one-fourth gallery_place_holder\" v-for=\"album in albums\">\n        <a v-link=\"{path:'/gallery/' + album.placeid}\">\n            <img class=\"one column\" :src=\"'./uploads/' + album.galMenuImg\">\n            <h3 class=\"gallery_place_title\">{{album.placename}}</h3>\n        </a>\n    </div>\n            <pre v-cloak>{{ $data | json }}</pre>\n</div>\n\n";
+	module.exports = "\n<div class=\"container\">\n    <div class=\"half push-one-fourth gallery_place_holder\" v-for=\"album in albums\">\n        <a v-link=\"{path:'/gallery/' + album.placeid}\">\n            <img class=\"one column\" :src=\"'./uploads/' + album.galMenuImg\">\n            <h3 class=\"gallery_place_title\">{{album.placename}}</h3>\n        </a>\n    </div>\n    <!--<pre v-cloak>{{ $data | json }}</pre>-->\n</div>\n\n";
 
 /***/ },
 /* 60 */
@@ -35510,7 +35519,10 @@
 	                var newImagePaths = [];
 	                var pathObj = {};
 	                for (var i = 0; i < album.data.imagepaths.length; i++) {
-	                    if (i % 2 == 0) {
+	                    if (i % 2 == 0 && i == album.data.imagepaths.length - 1) {
+	                        pathObj.firstPath = album.data.imagepaths[i];
+	                        newImagePaths.push(pathObj);
+	                    } else if (i % 2 == 0) {
 	                        pathObj.firstPath = album.data.imagepaths[i];
 	                    } else {
 	                        pathObj.secondPath = album.data.imagepaths[i];
@@ -35546,7 +35558,7 @@
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n<h2>{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"container\">\n<h2>{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\" v-if=\"imageObj.secondPath\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n<!--<pre v-cloak>{{ $data | json }}</pre>-->\n";
 
 /***/ }
 /******/ ]);

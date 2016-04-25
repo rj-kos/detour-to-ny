@@ -8,6 +8,8 @@
 
     <imageslider :images="sliderimages"></imageslider>
 
+    <!--<pre v-cloak>{{ $data | json }}</pre>-->
+
 </template>
 
 <script>
@@ -73,9 +75,10 @@ export default {
                     }
                 }
 
-                function insertTooltipPlace(place){
+                function insertTooltipPlace(place, id){
 
                     $('.map_tt_title').text(place);
+                    $('.map_tt a').attr('href', '/gallery/'+id);
  
                 }
 
@@ -98,7 +101,7 @@ export default {
                     .style("display", "none")
                     .text("a simple tooltip")
                     .attr("class","map_tt_wrap")
-                    .html('<div class="map_tt"><div class="map_tt_title"></div><div class="tt_img_wrap"><div class="tt_img_holder"></div><div class="tt_img_loader"><img src="./img/oval.svg"></div></div></div>');
+                    .html('<div class="map_tt"><a><div class="map_tt_title"></div><div class="tt_img_wrap"><div class="tt_img_holder"></div><div class="tt_img_loader"><img src="./img/oval.svg"></div></div></a></div>');
             
 
                 var projection = d3.geo.albersUsa()
@@ -187,13 +190,22 @@ export default {
                     .attr("r", function(){return (originalWidth/100) + 'px'})
                     .on("mouseover", function(d){
                         $(".tt_img_holder").html('');
-                        insertTooltipPlace(d.placename);
+                        insertTooltipPlace(d.placename,d._id);
                         insertTooltipImg(findImagePath(d._id));
                         $(".tt_img_loader").css("display","block");
-                        return $('.map_tt_wrap').stop().fadeIn().css({"display":"block", "top": (event.pageY-10)+"px", "left":(event.pageX+10)+"px"})})
+                        return $('.map_tt_wrap').stop().fadeIn().css({"display":"block", "top": (event.pageY+10)+"px", "left":ttipX()})})
                     //.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
                     .on("mouseout", function(){return $('.map_tt_wrap').stop().fadeOut();});
                     ;
+
+                function ttipX(){
+                    if($(window).width() - event.pageX > 210) {
+                        return (event.pageX+10) + "px";
+                    } 
+                    else {
+                        return (event.pageX - 210) + "px";
+                    }
+                };
 
             
                 $('.map_tt_wrap').stop().hover(function(){

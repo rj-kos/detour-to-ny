@@ -306,6 +306,11 @@ $roadtripCirclesColor: #26C6DA;
 	text-align:center;
 	@include card(1);
 
+	a {
+		text-decoration: none;
+		color:$gray;
+	}
+
 	.map_tt_title {
 		font-size:1.5em;
 		font-weight:bold;

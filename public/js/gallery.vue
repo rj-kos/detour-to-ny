@@ -6,7 +6,7 @@
                 <h3 class="gallery_place_title">{{album.placename}}</h3>
             </a>
         </div>
-                <pre v-cloak>{{ $data | json }}</pre>
+        <!--<pre v-cloak>{{ $data | json }}</pre>-->
     </div>
 
 </template>

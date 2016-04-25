@@ -26,7 +26,6 @@
                 </div>
     
             </div>
-            <pre v-cloak>{{ $data | json }}</pre>
         </div>
     </div>
     
