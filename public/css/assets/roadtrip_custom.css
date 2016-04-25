@@ -147,6 +147,9 @@ body {
     cursor: pointer;
     stroke: white;
     stroke-width: 2px; }
+  @media (max-width: 767px) {
+    .map .placeCircles, .map .placeCircles:hover {
+      r: 15px; } }
 
 .map_tt {
   width: 200px;

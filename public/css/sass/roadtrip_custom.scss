@@ -297,6 +297,12 @@ $roadtripCirclesColor: #26C6DA;
 		stroke:white;
 		stroke-width:2px;
 	}
+	@media (max-width:767px) {
+		.placeCircles, .placeCircles:hover {
+			r:15px;
+		}
+		
+	}
 }
 
 .map_tt {
