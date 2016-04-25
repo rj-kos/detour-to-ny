@@ -991,6 +991,12 @@ body {
   }
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .image_slider .slider_img_wrap {
+    height: 150px;
+  }
+}
+
 .image_slider img {
   height: auto;
   width: 100%;
@@ -998,7 +1004,7 @@ body {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12);
 }
 
-@media (min-width: 1023px) {
+@media (min-width: 768px) {
   .image_slider img {
     height: 100%;
     width: auto;

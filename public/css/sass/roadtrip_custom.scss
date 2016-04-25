@@ -401,6 +401,9 @@ $roadtripCirclesColor: #26C6DA;
 		@include desktop {
 			height:200px;
 		}
+		@include tablet {
+			height:150px;
+		}
 	}
 	img{
 		height:auto;
@@ -408,7 +411,7 @@ $roadtripCirclesColor: #26C6DA;
 		display:inline-block;
 		@include card(1);
 
-		@include desktop {
+		@include tablet_and_desktop {
 			height:100%;
 			width:auto;
 		}

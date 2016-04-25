@@ -18,6 +18,25 @@ var upload = multer( { storage:storage });
 var Blog = require('./models/blogposts');
 var Places = require('./models/places');
 var Albums = require('./models/albums');
+var Users = require('./models/users');
+
+//Password salting and hashing
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+//checkAuth middleware
+function checkAuth(req, res, next) {
+
+  Users.count({_id: req.session.userid}, function(err,count){
+      if (!req.session.logged_in || count==0) {
+        res.send('You are not authorized to view this page');
+      } else {
+        next();
+      }
+
+  });
+
+}
 
     module.exports = function(app) {
 
@@ -116,7 +135,7 @@ var Albums = require('./models/albums');
 
         //posts
 
-        app.post('/api/places', function(req,res){
+        app.post('/api/places', checkAuth, function(req,res){
 
           //res.contentType('json');
 
@@ -140,7 +159,7 @@ var Albums = require('./models/albums');
         });
 
 
-        app.post('/api/blog', upload.single( 'file' ), function(req,res,next){
+        app.post('/api/blog', checkAuth, upload.single( 'file' ), function(req,res,next){
         
           console.log(req.file);
           console.log(req.body.placeid);
@@ -190,7 +209,7 @@ var Albums = require('./models/albums');
 
         //
 
-        app.post('/api/image_upload', upload.single( 'file' ), function(req,res,next){
+        app.post('/api/image_upload', checkAuth, upload.single( 'file' ), function(req,res,next){
         
           Albums.count({placeid: req.body.placeid}, function(err,count){
             if(count>0){
@@ -236,10 +255,65 @@ var Albums = require('./models/albums');
 
         // route to handle delete goes here (app.delete)
 
+
+        //login, create user, and logout routes
+        app.post('/api/login', function (req, res) {
+          var post = req.body;
+          var response = res;
+
+          Users.findOne({username:post.user},function(err, user) {
+
+              if (err)
+                  res.send(err)
+
+              bcrypt.compare(post.password, user.password, function(err, res) {
+                  if(res==true && user.confirmed==true){
+                    req.session.userid = user._id;
+                    req.session.logged_in = true;
+                    response.redirect('/admin');
+                  }
+                  else {
+                    response.send('Bad user/pass');
+                  }
+              });             
+
+           });
+
+        });
+
+        app.post('/api/createusername', function(req,res){
+          var post = req.body;
+          bcrypt.hash(post.password, saltRounds, function(err, hash){
+            var user = new Users();
+              user.username = req.body.user;
+              user.password = hash;
+
+            user.save(function(err){
+            if (err)
+              res.send(err);
+
+            res.json({message: 'Place Created'});
+          });
+          });
+
+        });
+
+        app.get('/api/logout', checkAuth, function (req, res) {
+          delete req.session.logged_in;
+          res.redirect('/login');
+        });  
+
         // frontend routes =========================================================
         // route to handle all vue requests
+        app.get('/login', function(req,res){
+            res.sendfile('./public/login.html');
+        });
 
-        app.get('/admin',function(req,res){
+        app.get('/createusername', function(req,res){
+            res.sendfile('./public/createusername.html');
+        });
+
+        app.get('/admin', checkAuth,function(req,res){
             res.sendfile('./public/admin.html');
         });
 

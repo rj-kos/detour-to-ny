@@ -12,9 +12,19 @@ var db = require('./config/db');
 //listening
 var port = process.env.PORT || 3000;
 
-
+//mongo connection
 mongoose.connect(db.url); 
 
+//sessions
+var session = require('express-session');
+var MongoStore = require('connect-mongo/es5')(session);
+
+app.use(session({
+    secret: 'creamcheesesandwich',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection, ttl: 1 * 24 * 60 * 60 })
+}));
 
 app.use(bodyParser.json());
 
