@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         
-        <div class="adminFormHolder two-thirds push-one-sixth column center animated bounceInRight">
+        <div class="adminFormHolder two-thirds push-one-sixth column center animated bounceInDown">
 
             <div class="row">
                 <h2 class="gen-margin-top">Got new pics!??!</h2>
@@ -76,7 +76,7 @@ export default {
     },
     route:{
       deactivate: function(transition){
-        $('.adminFormHolder').addClass('animated bounceOutLeft').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
+        $('.adminFormHolder').addClass('animated bounceOutDown').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
               transition.next();             
             });
         

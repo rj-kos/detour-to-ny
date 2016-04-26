@@ -1,7 +1,7 @@
 <template>
     <div class="container">
     	
-    	<div class="adminFormHolder one-third push-one-third column center animated bounceInRight">
+    	<div class="adminFormHolder one-third push-one-third column center animated bounceInDown">
 
     		<div class="row">
         		<h2 class="gen-margin-top">Register a new place!</h2>
@@ -76,7 +76,7 @@ export default {
 		},
     route:{
       deactivate: function(transition){
-        $('.adminFormHolder').addClass('animated bounceOutLeft').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
+        $('.adminFormHolder').addClass('animated bounceOutDown').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
               transition.next();             
             });
         
