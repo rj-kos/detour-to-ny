@@ -195,6 +195,9 @@ body {
   .home_image_section .slick-slider {
     margin: 15px 0; }
 
+#admin_app {
+  overflow-x: hidden; }
+
 .adminFormHolder {
   margin-top: 20px;
   display: inline-block;

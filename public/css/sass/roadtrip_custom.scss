@@ -366,6 +366,11 @@ $roadtripCirclesColor: #26C6DA;
 }
 
 //admin forms
+
+#admin_app {
+	overflow-x:hidden;
+}
+
 .adminFormHolder {
 	margin-top:20px;
 	display:inline-block;
