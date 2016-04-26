@@ -1,12 +1,12 @@
 <template>
     <div class="container center">
         <div class="blog_post_wrap">
-            <div class="row blogpostholder left" v-for="blogpost in blogposts">
+            <div class="row blogpostholder center" v-for="blogpost in blogposts">
                 <a v-link="{path:'/blog/' + blogpost._id}">
                     <img :src="'/uploads/' + blogpost.featureImage">
                 </a>
                 <a v-link="{path:'/blog/' + blogpost._id}">
-                    <h2 class="left post_title">{{blogpost.title}}</h2>
+                    <h2 class="post_title">{{blogpost.title}}</h2>
                 </a>
                 <h3 class="post_place">{{blogpost.placename}}</h3>
                 <h4 class="post_date">{{blogpost.date}}</h4>

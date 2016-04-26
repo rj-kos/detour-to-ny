@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-    <h2>{{placename}}</h2>
+    <h2 class="gallery_header">{{placename}}</h2>
         <div v-for="imageObj in album.imagepaths" class="row">
             <div class="half column place_gallery_image_holder center">
                 <a :href="'./uploads/' + imageObj.firstPath" data-lightbox="roadtrip">

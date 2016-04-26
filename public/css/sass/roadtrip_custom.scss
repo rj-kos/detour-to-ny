@@ -1,11 +1,15 @@
 //fonts
 //@import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
-body {
+@import url(https://fonts.googleapis.com/css?family=Lora);
+.nav_link {
 	//font-family: 'Roboto', sans-serif;
 	font-family: 'Montserrat', sans-serif;
 }
 
+body {
+	font-family: 'Lora', serif;
+}
 
 //colors
 $primaryColor: green;
@@ -238,6 +242,9 @@ $desktop-width: 1023px;
 	}
 
 	.nav_link {
+
+		letter-spacing: 5px;
+
 		a {
 			color:$gray;
 			text-decoration: none;
@@ -299,7 +306,7 @@ $roadtripCirclesColor: #26C6DA;
 	}
 	@media (max-width:767px) {
 		.placeCircles, .placeCircles:hover {
-			r:15px;
+			r:10px;
 		}
 		
 	}
@@ -398,22 +405,37 @@ $roadtripCirclesColor: #26C6DA;
 	}
 	a {
 		color:inherit;
+		text-transform:uppercase;
+		text-decoration:none;
 	}
+
 	.post_title, .post_place {
 		margin:5px 0px;
 	}
 
 	.post_title {
-		text-transform:uppercase;
-		text-decoration: underline;
-		
+		font-weight:100;
+		text-transform: uppercase;
+	}
+
+	.post_place, .post_date {
+		font-family: 'Montserrat', sans-serif;
+		font-weight:100;
+	}
+	.post_place {
+		font-size:17px;
 	}
 
 	.post_date {
 		margin-top:5px;
 		display:block;
+		font-size:12px;
 
 	}
+}
+
+.blogpost_info_wrap {
+	text-align:center;
 }
 
 .image_slider {
@@ -483,4 +505,9 @@ margin: 0 auto;
 		}
 
 	}
+}
+
+.gallery_header {
+	font-weight:normal;
+	text-align:center;
 }

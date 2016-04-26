@@ -51,10 +51,10 @@
 	Vue.use(VueRouter);
 	//require('./public/js/map.js');
 	var home = __webpack_require__(41);
-	var blog = __webpack_require__(55);
-	var blogpost = __webpack_require__(58);
-	var gallery = __webpack_require__(61);
-	var gallery_place = __webpack_require__(64);
+	var blog = __webpack_require__(51);
+	var blogpost = __webpack_require__(54);
+	var gallery = __webpack_require__(57);
+	var gallery_place = __webpack_require__(60);
 
 	var $ = __webpack_require__(4);
 
@@ -24260,7 +24260,7 @@
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] public/js/home.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(54)
+	__vue_template__ = __webpack_require__(50)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -24312,7 +24312,14 @@
 	    methods: {
 	        getSliderImages: function getSliderImages() {
 	            this.$http.get('/api/allimages').then(function (images) {
-	                this.sliderimages = images.data;
+	                images.data.sort(function () {
+	                    return 0.5 - Math.random();
+	                });
+	                var random_images = [];
+	                for (var i = 0; i < 10 && i < images.data.length; i++) {
+	                    random_images.push(images.data[i]);
+	                }
+	                this.sliderimages = random_images;
 	            }, function (response) {
 	                console.log('error');
 	            });
@@ -34607,7 +34614,7 @@
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] public/js/imageslider.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(53)
+	__vue_template__ = __webpack_require__(49)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -34635,17 +34642,12 @@
 	  value: true
 	});
 
-	var _defineProperty2 = __webpack_require__(47);
-
-	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var $ = __webpack_require__(4);
 
-	var lightbox = __webpack_require__(51);
+	var lightbox = __webpack_require__(47);
 
-	var slick = __webpack_require__(52);
+	var slick = __webpack_require__(48);
 
 	exports.default = {
 
@@ -34653,31 +34655,33 @@
 
 	  watch: {
 	    'images': function images(val, oldVal) {
-	      var _$$slick;
+	      $('.image_slider').slick({
+	        infinite: true,
 
-	      $('.image_slider').slick((_$$slick = {
-	        infinite: true
-	      }, (0, _defineProperty3.default)(_$$slick, 'infinite', false), (0, _defineProperty3.default)(_$$slick, 'slidesToShow', 3), (0, _defineProperty3.default)(_$$slick, 'slidesToScroll', 3), (0, _defineProperty3.default)(_$$slick, 'responsive', [{
-	        breakpoint: 1024,
-	        settings: {
-	          slidesToShow: 3,
-	          slidesToScroll: 3,
-	          infinite: true,
-	          dots: true
-	        }
-	      }, {
-	        breakpoint: 600,
-	        settings: {
-	          slidesToShow: 1,
-	          slidesToScroll: 1
-	        }
-	      }, {
-	        breakpoint: 480,
-	        settings: {
-	          slidesToShow: 1,
-	          slidesToScroll: 1
-	        }
-	      }]), _$$slick));
+
+	        slidesToShow: 3,
+	        slidesToScroll: 1,
+	        responsive: [{
+	          breakpoint: 1024,
+	          settings: {
+	            slidesToShow: 2,
+	            slidesToScroll: 1,
+	            infinite: true
+	          }
+	        }, {
+	          breakpoint: 600,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1
+	          }
+	        }, {
+	          breakpoint: 480,
+	          settings: {
+	            slidesToShow: 1,
+	            slidesToScroll: 1
+	          }
+	        }]
+	      });
 	    }
 	  }
 
@@ -34685,68 +34689,6 @@
 
 /***/ },
 /* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _defineProperty = __webpack_require__(48);
-
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
-	  } else {
-	    obj[key] = value;
-	  }
-
-	  return obj;
-	};
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(49), __esModule: true };
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var $ = __webpack_require__(50);
-	module.exports = function defineProperty(it, key, desc){
-	  return $.setDesc(it, key, desc);
-	};
-
-/***/ },
-/* 50 */
-/***/ function(module, exports) {
-
-	var $Object = Object;
-	module.exports = {
-	  create:     $Object.create,
-	  getProto:   $Object.getPrototypeOf,
-	  isEnum:     {}.propertyIsEnumerable,
-	  getDesc:    $Object.getOwnPropertyDescriptor,
-	  setDesc:    $Object.defineProperty,
-	  setDescs:   $Object.defineProperties,
-	  getKeys:    $Object.keys,
-	  getNames:   $Object.getOwnPropertyNames,
-	  getSymbols: $Object.getOwnPropertySymbols,
-	  each:       [].forEach
-	};
-
-/***/ },
-/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -35205,7 +35147,7 @@
 
 
 /***/ },
-/* 52 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -35228,28 +35170,28 @@
 	}):i.postSlide(d))):i.options.infinite===!1&&i.options.centerMode===!0&&(0>a||a>i.slideCount-i.options.slidesToScroll)?void(i.options.fade===!1&&(d=i.currentSlide,c!==!0?i.animateSlide(g,function(){i.postSlide(d)}):i.postSlide(d))):(i.options.autoplay===!0&&clearInterval(i.autoPlayTimer),e=0>d?i.slideCount%i.options.slidesToScroll!==0?i.slideCount-i.slideCount%i.options.slidesToScroll:i.slideCount+d:d>=i.slideCount?i.slideCount%i.options.slidesToScroll!==0?0:d-i.slideCount:d,i.animating=!0,i.$slider.trigger("beforeChange",[i,i.currentSlide,e]),f=i.currentSlide,i.currentSlide=e,i.setSlideClasses(i.currentSlide),i.updateDots(),i.updateArrows(),i.options.fade===!0?(c!==!0?(i.fadeSlideOut(f),i.fadeSlide(e,function(){i.postSlide(e)})):i.postSlide(e),void i.animateHeight()):void(c!==!0?i.animateSlide(h,function(){i.postSlide(e)}):i.postSlide(e))))},b.prototype.startLoad=function(){var a=this;a.options.arrows===!0&&a.slideCount>a.options.slidesToShow&&(a.$prevArrow.hide(),a.$nextArrow.hide()),a.options.dots===!0&&a.slideCount>a.options.slidesToShow&&a.$dots.hide(),a.$slider.addClass("slick-loading")},b.prototype.swipeDirection=function(){var a,b,c,d,e=this;return a=e.touchObject.startX-e.touchObject.curX,b=e.touchObject.startY-e.touchObject.curY,c=Math.atan2(b,a),d=Math.round(180*c/Math.PI),0>d&&(d=360-Math.abs(d)),45>=d&&d>=0?e.options.rtl===!1?"left":"right":360>=d&&d>=315?e.options.rtl===!1?"left":"right":d>=135&&225>=d?e.options.rtl===!1?"right":"left":e.options.verticalSwiping===!0?d>=35&&135>=d?"left":"right":"vertical"},b.prototype.swipeEnd=function(a){var c,b=this;if(b.dragging=!1,b.shouldClick=b.touchObject.swipeLength>10?!1:!0,void 0===b.touchObject.curX)return!1;if(b.touchObject.edgeHit===!0&&b.$slider.trigger("edge",[b,b.swipeDirection()]),b.touchObject.swipeLength>=b.touchObject.minSwipe)switch(b.swipeDirection()){case"left":c=b.options.swipeToSlide?b.checkNavigable(b.currentSlide+b.getSlideCount()):b.currentSlide+b.getSlideCount(),b.slideHandler(c),b.currentDirection=0,b.touchObject={},b.$slider.trigger("swipe",[b,"left"]);break;case"right":c=b.options.swipeToSlide?b.checkNavigable(b.currentSlide-b.getSlideCount()):b.currentSlide-b.getSlideCount(),b.slideHandler(c),b.currentDirection=1,b.touchObject={},b.$slider.trigger("swipe",[b,"right"])}else b.touchObject.startX!==b.touchObject.curX&&(b.slideHandler(b.currentSlide),b.touchObject={})},b.prototype.swipeHandler=function(a){var b=this;if(!(b.options.swipe===!1||"ontouchend"in document&&b.options.swipe===!1||b.options.draggable===!1&&-1!==a.type.indexOf("mouse")))switch(b.touchObject.fingerCount=a.originalEvent&&void 0!==a.originalEvent.touches?a.originalEvent.touches.length:1,b.touchObject.minSwipe=b.listWidth/b.options.touchThreshold,b.options.verticalSwiping===!0&&(b.touchObject.minSwipe=b.listHeight/b.options.touchThreshold),a.data.action){case"start":b.swipeStart(a);break;case"move":b.swipeMove(a);break;case"end":b.swipeEnd(a)}},b.prototype.swipeMove=function(a){var d,e,f,g,h,b=this;return h=void 0!==a.originalEvent?a.originalEvent.touches:null,!b.dragging||h&&1!==h.length?!1:(d=b.getLeft(b.currentSlide),b.touchObject.curX=void 0!==h?h[0].pageX:a.clientX,b.touchObject.curY=void 0!==h?h[0].pageY:a.clientY,b.touchObject.swipeLength=Math.round(Math.sqrt(Math.pow(b.touchObject.curX-b.touchObject.startX,2))),b.options.verticalSwiping===!0&&(b.touchObject.swipeLength=Math.round(Math.sqrt(Math.pow(b.touchObject.curY-b.touchObject.startY,2)))),e=b.swipeDirection(),"vertical"!==e?(void 0!==a.originalEvent&&b.touchObject.swipeLength>4&&a.preventDefault(),g=(b.options.rtl===!1?1:-1)*(b.touchObject.curX>b.touchObject.startX?1:-1),b.options.verticalSwiping===!0&&(g=b.touchObject.curY>b.touchObject.startY?1:-1),f=b.touchObject.swipeLength,b.touchObject.edgeHit=!1,b.options.infinite===!1&&(0===b.currentSlide&&"right"===e||b.currentSlide>=b.getDotCount()&&"left"===e)&&(f=b.touchObject.swipeLength*b.options.edgeFriction,b.touchObject.edgeHit=!0),b.options.vertical===!1?b.swipeLeft=d+f*g:b.swipeLeft=d+f*(b.$list.height()/b.listWidth)*g,b.options.verticalSwiping===!0&&(b.swipeLeft=d+f*g),b.options.fade===!0||b.options.touchMove===!1?!1:b.animating===!0?(b.swipeLeft=null,!1):void b.setCSS(b.swipeLeft)):void 0)},b.prototype.swipeStart=function(a){var c,b=this;return 1!==b.touchObject.fingerCount||b.slideCount<=b.options.slidesToShow?(b.touchObject={},!1):(void 0!==a.originalEvent&&void 0!==a.originalEvent.touches&&(c=a.originalEvent.touches[0]),b.touchObject.startX=b.touchObject.curX=void 0!==c?c.pageX:a.clientX,b.touchObject.startY=b.touchObject.curY=void 0!==c?c.pageY:a.clientY,void(b.dragging=!0))},b.prototype.unfilterSlides=b.prototype.slickUnfilter=function(){var a=this;null!==a.$slidesCache&&(a.unload(),a.$slideTrack.children(this.options.slide).detach(),a.$slidesCache.appendTo(a.$slideTrack),a.reinit())},b.prototype.unload=function(){var b=this;a(".slick-cloned",b.$slider).remove(),b.$dots&&b.$dots.remove(),b.$prevArrow&&b.htmlExpr.test(b.options.prevArrow)&&b.$prevArrow.remove(),b.$nextArrow&&b.htmlExpr.test(b.options.nextArrow)&&b.$nextArrow.remove(),b.$slides.removeClass("slick-slide slick-active slick-visible slick-current").attr("aria-hidden","true").css("width","")},b.prototype.unslick=function(a){var b=this;b.$slider.trigger("unslick",[b,a]),b.destroy()},b.prototype.updateArrows=function(){var b,a=this;b=Math.floor(a.options.slidesToShow/2),a.options.arrows===!0&&a.slideCount>a.options.slidesToShow&&!a.options.infinite&&(a.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false"),a.$nextArrow.removeClass("slick-disabled").attr("aria-disabled","false"),0===a.currentSlide?(a.$prevArrow.addClass("slick-disabled").attr("aria-disabled","true"),a.$nextArrow.removeClass("slick-disabled").attr("aria-disabled","false")):a.currentSlide>=a.slideCount-a.options.slidesToShow&&a.options.centerMode===!1?(a.$nextArrow.addClass("slick-disabled").attr("aria-disabled","true"),a.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false")):a.currentSlide>=a.slideCount-1&&a.options.centerMode===!0&&(a.$nextArrow.addClass("slick-disabled").attr("aria-disabled","true"),a.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false")))},b.prototype.updateDots=function(){var a=this;null!==a.$dots&&(a.$dots.find("li").removeClass("slick-active").attr("aria-hidden","true"),a.$dots.find("li").eq(Math.floor(a.currentSlide/a.options.slidesToScroll)).addClass("slick-active").attr("aria-hidden","false"))},b.prototype.visibility=function(){var a=this;document[a.hidden]?(a.paused=!0,a.autoPlayClear()):a.options.autoplay===!0&&(a.paused=!1,a.autoPlay())},b.prototype.initADA=function(){var b=this;b.$slides.add(b.$slideTrack.find(".slick-cloned")).attr({"aria-hidden":"true",tabindex:"-1"}).find("a, input, button, select").attr({tabindex:"-1"}),b.$slideTrack.attr("role","listbox"),b.$slides.not(b.$slideTrack.find(".slick-cloned")).each(function(c){a(this).attr({role:"option","aria-describedby":"slick-slide"+b.instanceUid+c})}),null!==b.$dots&&b.$dots.attr("role","tablist").find("li").each(function(c){a(this).attr({role:"presentation","aria-selected":"false","aria-controls":"navigation"+b.instanceUid+c,id:"slick-slide"+b.instanceUid+c})}).first().attr("aria-selected","true").end().find("button").attr("role","button").end().closest("div").attr("role","toolbar"),b.activateADA()},b.prototype.activateADA=function(){var a=this;a.$slideTrack.find(".slick-active").attr({"aria-hidden":"false"}).find("a, input, button, select").attr({tabindex:"0"})},b.prototype.focusHandler=function(){var b=this;b.$slider.on("focus.slick blur.slick","*",function(c){c.stopImmediatePropagation();var d=a(this);setTimeout(function(){b.isPlay&&(d.is(":focus")?(b.autoPlayClear(),b.paused=!0):(b.paused=!1,b.autoPlay()))},0)})},a.fn.slick=function(){var f,g,a=this,c=arguments[0],d=Array.prototype.slice.call(arguments,1),e=a.length;for(f=0;e>f;f++)if("object"==typeof c||"undefined"==typeof c?a[f].slick=new b(a[f],c):g=a[f].slick[c].apply(a[f].slick,d),"undefined"!=typeof g)return g;return a}});
 
 /***/ },
-/* 53 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div class=\"row home_image_section\">\n    <div class=\"container\">\n        <div class=\"image_slider\">\n            <div class=\"slider_img_wrap\" v-for=\"image in images\">\n                <a :href=\"'./uploads/' + image\" data-lightbox=\"roadtrip\">\n                    <img :src=\"'./uploads/' + image\" >\n                </a>\n            </div>\n        </div>\n    </div>      \n</div>\n\n";
 
 /***/ },
-/* 54 */
+/* 50 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"one column map_holder\"></div>\n    </div>\n</div>\n\n<imageslider :images=\"sliderimages\"></imageslider>\n\n<!--<pre v-cloak>{{ $data | json }}</pre>-->\n\n";
+	module.exports = "\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"one column map_holder\"></div>\n    </div>\n</div>\n\n<imageslider :images=\"sliderimages\"></imageslider>\n\n<!-- <pre v-cloak>{{ $data | json }}</pre> -->\n\n";
 
 /***/ },
-/* 55 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(56)
+	__vue_script__ = __webpack_require__(52)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] public/js/blog.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(57)
+	__vue_template__ = __webpack_require__(53)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -35268,7 +35210,7 @@
 	})()}
 
 /***/ },
-/* 56 */
+/* 52 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35340,22 +35282,22 @@
 	};
 
 /***/ },
-/* 57 */
+/* 53 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"left post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
+	module.exports = "\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder center\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
 
 /***/ },
-/* 58 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(59)
+	__vue_script__ = __webpack_require__(55)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] public/js/blogpost.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(60)
+	__vue_template__ = __webpack_require__(56)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -35374,7 +35316,7 @@
 	})()}
 
 /***/ },
-/* 59 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35442,22 +35384,22 @@
 	};
 
 /***/ },
-/* 60 */
+/* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\">\n            <img :src=\"'/uploads/' + blogpost.featureImage\">\n                <h2 class=\"left post_title\">{{blogpost.title}}</h2>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n            <div>\n            {{{blogpost.content}}}\n            </div>\n        </div>\n    </div>\n</div>\n<imageslider :images=\"album.imagepaths\"></imageslider>\n";
+	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\">\n            <img :src=\"'/uploads/' + blogpost.featureImage\">\n                <div class=\"blogpost_info_wrap\">\n                    <h2 class=\"post_title\">{{blogpost.title}}</h2>\n                    <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n                    <h4 class=\"post_date\">{{blogpost.date}}</h4>\n                </div>\n            <div>\n            {{{blogpost.content}}}\n            </div>\n        </div>\n    </div>\n</div>\n<imageslider :images=\"album.imagepaths\"></imageslider>\n";
 
 /***/ },
-/* 61 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(62)
+	__vue_script__ = __webpack_require__(58)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] public/js/gallery.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(63)
+	__vue_template__ = __webpack_require__(59)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -35476,7 +35418,7 @@
 	})()}
 
 /***/ },
-/* 62 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35547,22 +35489,22 @@
 	};
 
 /***/ },
-/* 63 */
+/* 59 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"container\">\n    <div class=\"half push-one-fourth gallery_place_holder\" v-for=\"album in albums\">\n        <a v-link=\"{path:'/gallery/' + album.placeid}\">\n            <img class=\"one column\" :src=\"'./uploads/' + album.galMenuImg\">\n            <h3 class=\"gallery_place_title\">{{album.placename}}</h3>\n        </a>\n    </div>\n    <!--<pre v-cloak>{{ $data | json }}</pre>-->\n</div>\n\n";
 
 /***/ },
-/* 64 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(65)
+	__vue_script__ = __webpack_require__(61)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] public/js/gallery_place.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(66)
+	__vue_template__ = __webpack_require__(62)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -35581,7 +35523,7 @@
 	})()}
 
 /***/ },
-/* 65 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35591,7 +35533,7 @@
 	});
 
 
-	var lightbox = __webpack_require__(51);
+	var lightbox = __webpack_require__(47);
 
 	exports.default = {
 
@@ -35644,10 +35586,10 @@
 	};
 
 /***/ },
-/* 66 */
+/* 62 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n<h2>{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\" v-if=\"imageObj.secondPath\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n<!--<pre v-cloak>{{ $data | json }}</pre>-->\n";
+	module.exports = "\n<div class=\"container\">\n<h2 class=\"gallery_header\">{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\" v-if=\"imageObj.secondPath\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n<!--<pre v-cloak>{{ $data | json }}</pre>-->\n";
 
 /***/ }
 /******/ ]);

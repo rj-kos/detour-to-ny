@@ -8,7 +8,7 @@
 
     <imageslider :images="sliderimages"></imageslider>
 
-    <!--<pre v-cloak>{{ $data | json }}</pre>-->
+    <!-- <pre v-cloak>{{ $data | json }}</pre> -->
 
 </template>
 
@@ -38,7 +38,12 @@ export default {
         getSliderImages:
             function(){
                 this.$http.get('/api/allimages').then(function(images){
-                    this.sliderimages = images.data;
+                    images.data.sort( function() { return 0.5 - Math.random() } );
+                    var random_images = [];
+                    for(var i=0;i<10 && i<images.data.length;i++){
+                        random_images.push(images.data[i]);
+                    }
+                    this.sliderimages = random_images;
                 }, function(response) {
                     console.log('error');
                 });

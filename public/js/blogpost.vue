@@ -4,9 +4,11 @@
         <div class="blog_post_wrap">
             <div class="row blogpostholder left">
                 <img :src="'/uploads/' + blogpost.featureImage">
-                    <h2 class="left post_title">{{blogpost.title}}</h2>
-                <h3 class="post_place">{{blogpost.placename}}</h3>
-                <h4 class="post_date">{{blogpost.date}}</h4>
+                    <div class="blogpost_info_wrap">
+                        <h2 class="post_title">{{blogpost.title}}</h2>
+                        <h3 class="post_place">{{blogpost.placename}}</h3>
+                        <h4 class="post_date">{{blogpost.date}}</h4>
+                    </div>
                 <div>
                 {{{blogpost.content}}}
                 </div>
