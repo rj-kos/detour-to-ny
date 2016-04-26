@@ -878,11 +878,11 @@ body {
 }
 
 .map .roadtripPath {
-  stroke: #26C6DA;
+  stroke: #FF6666;
 }
 
 .map .placeCircles {
-  fill: #26C6DA;
+  fill: #FF6666;
 }
 
 .map .placeCircles:hover {
@@ -913,7 +913,6 @@ body {
 
 .map_tt .map_tt_title {
   font-size: 1.5em;
-  font-weight: bold;
 }
 
 .map_tt img {
@@ -1034,6 +1033,11 @@ body {
   text-align: center;
 }
 
+.image_slider {
+  width: 95%;
+  display: inline-block;
+}
+
 .image_slider button {
   display: block;
 }
@@ -1050,7 +1054,7 @@ body {
 
 @media (min-width: 1023px) {
   .image_slider .slider_img_wrap {
-    height: 200px;
+    height: 180px;
   }
 }
 

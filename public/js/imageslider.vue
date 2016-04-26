@@ -1,10 +1,10 @@
 <template>
     
     <div class="row home_image_section">
-        <div class="container">
+        <div class="container center">
             <div class="image_slider">
-                <div class="slider_img_wrap" v-for="image in images">
-                    <a :href="'./uploads/' + image" data-lightbox="roadtrip">
+                <div class="slider_img_wrap" v-for="(index,image) in images">
+                    <a :href="'./uploads/' + image" :data-lightbox="getRand(index)">
                         <img :src="'./uploads/' + image" >
                     </a>
                 </div>
@@ -22,9 +22,22 @@ var lightbox = require('../dist/lightbox.js');
 
 var slick = require('../dist/slick/slick.min.js');
 
+    lightbox.option({
+      'albumLabel':'',
+      'disableScrolling':true,
+    });
+
 export default {
 
+    methods:{
+        getRand:
+            function(index){
+                return index * Math.random();
+            }
+    },
+
     props:['images'],
+
 
     watch : {
      'images':
@@ -59,19 +72,15 @@ export default {
         slidesToScroll: 1
       }
     }
-    // You can unslick at a given breakpoint now by adding:
-    // settings: "unslick"
-    // instead of a settings object
   ]
             });
+
+        //$('div.slider_img_wrap').children('a').filter(function(){
+          //  return $(this).parent().attr('data-slick-index') >= 0;
+        //}).attr("data-lightbox","roadtrip");
+
         }
      }
-
-    //data: function() {
-    //    return {
-    //    msg: 'Hello from vue-loader'
-    //    }
-    //}
 }
 
 </script>

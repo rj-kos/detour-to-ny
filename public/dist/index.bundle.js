@@ -34649,7 +34649,18 @@
 
 	var slick = __webpack_require__(48);
 
+	lightbox.option({
+	  'albumLabel': '',
+	  'disableScrolling': true
+	});
+
 	exports.default = {
+
+	  methods: {
+	    getRand: function getRand(index) {
+	      return index * Math.random();
+	    }
+	  },
 
 	  props: ['images'],
 
@@ -34684,7 +34695,6 @@
 	      });
 	    }
 	  }
-
 	};
 
 /***/ },
@@ -35173,7 +35183,7 @@
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"row home_image_section\">\n    <div class=\"container\">\n        <div class=\"image_slider\">\n            <div class=\"slider_img_wrap\" v-for=\"image in images\">\n                <a :href=\"'./uploads/' + image\" data-lightbox=\"roadtrip\">\n                    <img :src=\"'./uploads/' + image\" >\n                </a>\n            </div>\n        </div>\n    </div>      \n</div>\n\n";
+	module.exports = "\n\n<div class=\"row home_image_section\">\n    <div class=\"container center\">\n        <div class=\"image_slider\">\n            <div class=\"slider_img_wrap\" v-for=\"(index,image) in images\">\n                <a :href=\"'./uploads/' + image\" :data-lightbox=\"getRand(index)\">\n                    <img :src=\"'./uploads/' + image\" >\n                </a>\n            </div>\n        </div>\n    </div>      \n</div>\n\n";
 
 /***/ },
 /* 50 */

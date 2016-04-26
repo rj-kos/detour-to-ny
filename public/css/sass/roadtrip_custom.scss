@@ -283,8 +283,8 @@ $desktop-width: 1023px;
 
 //map.js
 
-$roadtripPathColor: #26C6DA;
-$roadtripCirclesColor: #26C6DA;
+$roadtripPathColor: #FF6666;//#26C6DA;
+$roadtripCirclesColor: #FF6666;//#26C6DA;
 
 .map {
 	stroke-width:1px;
@@ -326,7 +326,6 @@ $roadtripCirclesColor: #26C6DA;
 
 	.map_tt_title {
 		font-size:1.5em;
-		font-weight:bold;
 	}
 	img{
 		width:100%;
@@ -445,6 +444,9 @@ $roadtripCirclesColor: #26C6DA;
 
 .image_slider {
 
+	width:95%;
+	display:inline-block;
+
 	button {
 		display:block;
 		
@@ -459,7 +461,7 @@ $roadtripCirclesColor: #26C6DA;
 	.slider_img_wrap {
 		text-align:center;
 		@include desktop {
-			height:200px;
+			height:180px;
 		}
 		@include tablet {
 			height:150px;
