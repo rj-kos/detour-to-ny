@@ -525,5 +525,9 @@ margin: 0 auto;
 }
 
 .about_wrap {
-	margin-top:200px;
+	position: fixed;
+	top: 50%;
+	left:0;
+	right:0;
+	transform: translateY(-50%);
 }
