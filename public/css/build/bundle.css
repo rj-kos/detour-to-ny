@@ -1126,4 +1126,5 @@ body .post_content {
   left: 0;
   right: 0;
   transform: translateY(-50%);
+  line-height: 1.8;
 }
