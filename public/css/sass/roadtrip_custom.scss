@@ -2,6 +2,7 @@
 //@import url(https://fonts.googleapis.com/css?family=Roboto);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lora);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 .nav_link {
 	//font-family: 'Roboto', sans-serif;
 	font-family: 'Montserrat', sans-serif;
@@ -9,6 +10,10 @@
 
 body {
 	font-family: 'Lora', serif;
+
+	.post_content {
+		font-family:'Roboto', sans-serif;
+	}
 }
 
 //colors
@@ -306,7 +311,7 @@ $roadtripCirclesColor: #FF6666;//#26C6DA;
 	}
 	@media (max-width:767px) {
 		.placeCircles, .placeCircles:hover {
-			r:10px;
+			r:8px;
 		}
 		
 	}
@@ -517,4 +522,8 @@ margin: 0 auto;
 .gallery_header {
 	font-weight:normal;
 	text-align:center;
+}
+
+.about_wrap {
+	margin-top:200px;
 }

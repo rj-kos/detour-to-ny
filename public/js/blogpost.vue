@@ -9,7 +9,7 @@
                         <h3 class="post_place">{{blogpost.placename}}</h3>
                         <h4 class="post_date">{{blogpost.date}}</h4>
                     </div>
-                <div>
+                <div class="post_content">
                 {{{blogpost.content}}}
                 </div>
             </div>

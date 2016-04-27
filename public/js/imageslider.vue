@@ -4,7 +4,7 @@
         <div class="container center">
             <div class="image_slider">
                 <div class="slider_img_wrap" v-for="(index,image) in images">
-                    <a :href="'./uploads/' + image" :data-lightbox="getRand(index)">
+                    <a :href="'./uploads/' + image" data-lightbox="roadtrip">
                         <img :src="'./uploads/' + image" >
                     </a>
                 </div>
@@ -43,7 +43,7 @@ export default {
      'images':
          function(val,oldVal) {
              $('.image_slider').slick({
-               infinite: true,
+               infinite: false,
                //lazyLoad:'ondemand',
 
  

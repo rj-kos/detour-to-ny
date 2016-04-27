@@ -55,6 +55,7 @@
 	var blogpost = __webpack_require__(54);
 	var gallery = __webpack_require__(57);
 	var gallery_place = __webpack_require__(60);
+	var about = __webpack_require__(63);
 
 	var $ = __webpack_require__(4);
 
@@ -72,6 +73,12 @@
 	        $('.collapsed_nav_link').click(function(){
 	            console.log('sliding');
 	            $('.mainNav').slideToggle();
+	            });
+
+	        $('.nav_link a').click(function(){
+	            if($('.mainNav').css('display')=='block'){
+	                $('.mainNav').slideToggle();
+	                }
 	            });
 	        }
 	//,
@@ -116,6 +123,9 @@
 	        },
 	        '/gallery/:place':{
 	            component:gallery_place
+	        },
+	        '/about':{
+	            component:about
 	        }
 	        //  '/user/:username': {
 	        //    component: {
@@ -34667,7 +34677,7 @@
 	  watch: {
 	    'images': function images(val, oldVal) {
 	      $('.image_slider').slick({
-	        infinite: true,
+	        infinite: false,
 
 
 	        slidesToShow: 3,
@@ -35183,7 +35193,7 @@
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"row home_image_section\">\n    <div class=\"container center\">\n        <div class=\"image_slider\">\n            <div class=\"slider_img_wrap\" v-for=\"(index,image) in images\">\n                <a :href=\"'./uploads/' + image\" :data-lightbox=\"getRand(index)\">\n                    <img :src=\"'./uploads/' + image\" >\n                </a>\n            </div>\n        </div>\n    </div>      \n</div>\n\n";
+	module.exports = "\n\n<div class=\"row home_image_section\">\n    <div class=\"container center\">\n        <div class=\"image_slider\">\n            <div class=\"slider_img_wrap\" v-for=\"(index,image) in images\">\n                <a :href=\"'./uploads/' + image\" data-lightbox=\"roadtrip\">\n                    <img :src=\"'./uploads/' + image\" >\n                </a>\n            </div>\n        </div>\n    </div>      \n</div>\n\n";
 
 /***/ },
 /* 50 */
@@ -35397,7 +35407,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\">\n            <img :src=\"'/uploads/' + blogpost.featureImage\">\n                <div class=\"blogpost_info_wrap\">\n                    <h2 class=\"post_title\">{{blogpost.title}}</h2>\n                    <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n                    <h4 class=\"post_date\">{{blogpost.date}}</h4>\n                </div>\n            <div>\n            {{{blogpost.content}}}\n            </div>\n        </div>\n    </div>\n</div>\n<imageslider :images=\"album.imagepaths\"></imageslider>\n";
+	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\">\n            <img :src=\"'/uploads/' + blogpost.featureImage\">\n                <div class=\"blogpost_info_wrap\">\n                    <h2 class=\"post_title\">{{blogpost.title}}</h2>\n                    <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n                    <h4 class=\"post_date\">{{blogpost.date}}</h4>\n                </div>\n            <div class=\"post_content\">\n            {{{blogpost.content}}}\n            </div>\n        </div>\n    </div>\n</div>\n<imageslider :images=\"album.imagepaths\"></imageslider>\n";
 
 /***/ },
 /* 57 */
@@ -35600,6 +35610,51 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"container\">\n<h2 class=\"gallery_header\">{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\" v-if=\"imageObj.secondPath\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n<!--<pre v-cloak>{{ $data | json }}</pre>-->\n";
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(64)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] public/js/about.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(65)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/vagrant/app/public/js/about.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 64 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {};
+
+/***/ },
+/* 65 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"container center\">\n    <div class=\"about_wrap\">\n        \"Let's move to New York.\"\n        <br>\n        \"Okay! Do you want to drive around the country aimlessly first?\"\n        <br>\n        \"I do, yeah.\"\n    </div>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
 
 /***/ }
 /******/ ]);

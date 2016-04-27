@@ -9,6 +9,7 @@ var blog = require('./public/js/blog.vue');
 var blogpost = require('./public/js/blogpost.vue');
 var gallery = require('./public/js/gallery.vue');
 var gallery_place = require('./public/js/gallery_place.vue');
+var about = require('./public/js/about.vue');
 
 var $ = require('jquery');
 
@@ -26,6 +27,12 @@ var App = Vue.extend({
         $('.collapsed_nav_link').click(function(){
             console.log('sliding');
             $('.mainNav').slideToggle();
+            });
+
+        $('.nav_link a').click(function(){
+            if($('.mainNav').css('display')=='block'){
+                $('.mainNav').slideToggle();
+                }
             });
         }
 //,
@@ -70,6 +77,9 @@ var App = Vue.extend({
         },
         '/gallery/:place':{
             component:gallery_place
+        },
+        '/about':{
+            component:about
         }
         //  '/user/:username': {
         //    component: {

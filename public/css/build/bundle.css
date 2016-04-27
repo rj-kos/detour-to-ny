@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lora);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 
 /**
@@ -659,6 +660,10 @@ body {
   font-family: 'Lora', serif;
 }
 
+body .post_content {
+  font-family: 'Roboto', sans-serif;
+}
+
 .container {
   margin: 0 auto;
   padding: 0 10px;
@@ -895,7 +900,7 @@ body {
 @media (max-width: 767px) {
   .map .placeCircles,
   .map .placeCircles:hover {
-    r: 10px;
+    r: 8px;
   }
 }
 
@@ -1113,4 +1118,8 @@ body {
 .gallery_header {
   font-weight: normal;
   text-align: center;
+}
+
+.about_wrap {
+  margin-top: 200px;
 }
