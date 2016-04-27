@@ -29,8 +29,8 @@ var App = Vue.extend({
             $('.mainNav').slideToggle();
             });
 
-        $('.nav_link a').click(function(){
-            if($('.mainNav').css('display')=='block'){
+        $('.nav_link a, .nav_logo').click(function(){
+            if($('.mainNav').css('display')=='block' && $(window).width()<768){
                 $('.mainNav').slideToggle();
                 }
             });

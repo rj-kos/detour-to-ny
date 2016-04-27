@@ -75,8 +75,8 @@
 	            $('.mainNav').slideToggle();
 	            });
 
-	        $('.nav_link a').click(function(){
-	            if($('.mainNav').css('display')=='block'){
+	        $('.nav_link a, .nav_logo').click(function(){
+	            if($('.mainNav').css('display')=='block' && $(window).width()<768){
 	                $('.mainNav').slideToggle();
 	                }
 	            });
@@ -34683,16 +34683,9 @@
 	        slidesToShow: 3,
 	        slidesToScroll: 1,
 	        responsive: [{
-	          breakpoint: 1024,
+	          breakpoint: 768,
 	          settings: {
 	            slidesToShow: 2,
-	            slidesToScroll: 1,
-	            infinite: true
-	          }
-	        }, {
-	          breakpoint: 600,
-	          settings: {
-	            slidesToShow: 1,
 	            slidesToScroll: 1
 	          }
 	        }, {

@@ -786,6 +786,7 @@ body .post_content {
 .mainNavWrap .nav_menu_ham {
   width: 40px;
   height: auto;
+  cursor: pointer;
 }
 
 .mainNavWrap .collapsed_nav_link {
