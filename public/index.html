@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+    <link rel="icon" type="image/png" href="./img/g3774.png">
     <link rel="stylesheet" type="text/css" href="./dist/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="./dist/slick/slick-theme.css"/>
     
     <link rel="stylesheet" type="text/css" href="./css/build/bundle.css">
     <title>Detour To NY</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
 
 </head>
 
@@ -40,8 +42,10 @@
                             <img width="1" height="1" src="../img/roadtrip_logo.svg" class="nav_logo">
                         </a>
                     </li>
-                    <li class="one-fifth column nav_link">
-                        <h4>STATS</h4>
+                    <li class="one-fifth column nav_link" v-link-active>
+                        <a v-link="{path:'/stats'}">
+                            <h4>STATS</h4>
+                        </a>
                     </li>
                     <li class="one-fifth column nav_link" v-link-active>
                         <a v-link="{path:'/about'}">

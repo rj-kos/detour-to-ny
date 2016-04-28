@@ -8,6 +8,7 @@ var Dropzone = require('./public/admin/dropzone.js');
 var admin_bp = require('./public/js/admin_bp.vue');
 var admin_place = require('./public/js/admin_place.vue');
 var admin_gallery = require('./public/js/admin_gallery.vue');
+var admin_stats = require('./public/js/admin_stats.vue');
 
 var AdminHome = Vue.extend({
     template: '<p>Select An Admin Panel!</p>'
@@ -65,6 +66,9 @@ var App = Vue.extend({
         },
         '':{
             component: AdminHome
+        },
+        '/stats_panel':{
+            component:admin_stats
         }
     });
 

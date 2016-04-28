@@ -10,6 +10,7 @@ var blogpost = require('./public/js/blogpost.vue');
 var gallery = require('./public/js/gallery.vue');
 var gallery_place = require('./public/js/gallery_place.vue');
 var about = require('./public/js/about.vue');
+var stats = require('./public/js/stats.vue');
 
 var $ = require('jquery');
 
@@ -77,6 +78,9 @@ var App = Vue.extend({
         },
         '/gallery/:place':{
             component:gallery_place
+        },
+        '/stats':{
+            component:stats
         },
         '/about':{
             component:about

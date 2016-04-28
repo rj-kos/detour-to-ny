@@ -1129,3 +1129,8 @@ body .post_content {
   transform: translateY(-50%);
   line-height: 1.8;
 }
+
+.statHolder {
+  font-size: 2rem;
+  font-family: 'Roboto', sans-serif;
+}

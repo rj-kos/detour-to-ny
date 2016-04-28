@@ -19,6 +19,7 @@ var Blog = require('./models/blogposts');
 var Places = require('./models/places');
 var Albums = require('./models/albums');
 var Users = require('./models/users');
+var Stats = require('./models/stats');
 
 //Password salting and hashing
 var bcrypt = require('bcrypt');
@@ -132,6 +133,24 @@ function checkAuth(req, res, next) {
           });
         });
 
+        app.get('/api/stats', function(req, res){
+          Stats.find().distinct('statname', function(err, statnames) {
+            if(err)
+              res.send(err)
+
+            res.json(statnames);
+          });
+        });
+
+        app.get('/api/fullstats',function(req,res){
+          Stats.find(function(err,stats){
+            if(err)
+              res.send(err)
+
+            res.json(stats);
+          });
+        });
+
 
         //posts
 
@@ -154,6 +173,22 @@ function checkAuth(req, res, next) {
               res.send(err);
 
             res.json({message: 'Place Created'});
+          });
+
+        });
+
+        app.post('/api/stats', checkAuth, function(req,res){
+          var stat = new Stats();
+          if(req.body.statname)
+            stat.statname = req.body.statname;
+          if(req.body.number)
+            stat.number = req.body.number;
+
+          stat.save(function(err){
+            if (err)
+              res.send(err);
+
+            res.json({message:'Stat Registered'});
           });
 
         });

@@ -54,6 +54,7 @@
 	var admin_bp = __webpack_require__(7);
 	var admin_place = __webpack_require__(35);
 	var admin_gallery = __webpack_require__(38);
+	var admin_stats = __webpack_require__(41);
 
 	var AdminHome = Vue.extend({
 	    template: '<p>Select An Admin Panel!</p>'
@@ -111,6 +112,9 @@
 	        },
 	        '':{
 	            component: AdminHome
+	        },
+	        '/stats_panel':{
+	            component:admin_stats
 	        }
 	    });
 
@@ -30029,6 +30033,109 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"container\">\n    \n    <div class=\"adminFormHolder two-thirds push-one-sixth column center animated bounceInDown\">\n\n        <div class=\"row\">\n            <h2 class=\"gen-margin-top\">Got new pics!??!</h2>\n        </div>\n        <div class=\"row center\">\n            <div><b>LOCATION</b></div>\n            <select v-model=\"selectedPlace\">\n                <option selected=\"true\" disabled=\"disabled\" value=\"none\">Where are these pics from?</option>\n                <option v-for=\"place in places\" value=\"{{place._id}}\">\n                    {{place.placename}}\n                </option>\n            </select>\n        </div>\n        <div class=\"row gen-margin-top\">\n\n            <form action=\"/api/image_upload\" class=\"dropzone\" id=\"my-awesome-dropzone\">   \n                <input type=\"text\" name=\"placeid\" value=\"{{selectedPlace}}\" style=\"display:none;\">\n            </form>\n            <div class=\"row gen-margin-top\">\n                <input type=\"submit\" value=\"Submit\" v-on:click=\"dzUpload()\"> \n                <br>{{warning}}\n            </div>\n\n        </div>\n    </div>\n</div>\n\n\n";
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(42)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] public/js/admin_stats.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(43)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/vagrant/app/public/js/admin_stats.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+
+	var $ = __webpack_require__(4);
+
+	exports.default = {
+	  data: function data() {
+	    return {
+	      statname: '',
+	      newStat: false,
+	      currentstatnames: [],
+	      stat: {
+	        statname: '',
+	        number: 0
+	      }
+	    };
+	  },
+	  methods: {
+	    getCurrentStats: function getCurrentStats() {
+	      this.$http.get('/api/stats').then(function (stats) {
+	        this.currentstatnames = stats.data;
+	        console.log(stats.data);
+	      }, function (response) {
+	        console.log('error');
+	      });
+	    },
+	    submitStat: function submitStat() {
+	      this.$http.post('/api/stats', this.stat).then(function (success) {
+	        console.log(success);
+	      }, function (err) {
+	        console.log(err);
+	      });
+	    }
+	  },
+	  route: {
+	    deactivate: function deactivate(transition) {
+	      $('.adminFormHolder').addClass('animated bounceOutDown').on('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function () {
+	        transition.next();
+	      });
+	    }
+	  },
+	  ready: function ready() {
+	    this.getCurrentStats();
+	  },
+
+	  watch: {
+	    'statname': function statname(val, oldVal) {
+	      if (val == 'createnewstat') {
+	        this.stat.statname = '';
+	        this.newStat = true;
+	      } else {
+	        if (val != 'none') {
+	          this.stat.statname = val;
+	        }
+	        this.newStat = false;
+	      }
+	    }
+	  }
+
+	};
+
+/***/ },
+/* 43 */
+/***/ function(module, exports) {
+
+	module.exports = "\n  <div class=\"container\">\n  \t\n  \t<div class=\"adminFormHolder one-third push-one-third column center animated bounceInDown\">\n\n  \t\t<div class=\"row\">\n\n  \t\t\t<form>\n  \t\t\t\t<div class=\"row\">What's the stat?!</div>\n\t\t\t\t\t\t<select v-model=\"statname\">\n                  <option selected=\"true\" disabled=\"disabled\" value=\"none\">Select a stat or create a new one!</option>\n                  <option v-for=\"currentstatname in currentstatnames\" value=\"{{currentstatname}}\">\n                      {{currentstatname}}\n                  </option>\n                  <option value=\"createnewstat\">Create A New Stat</option>\n            </select>\n\t\t\t\t\t<div v-show=\"newStat\" class=\"row gen-margin-top\">New Stat Name</div>\n\t\t\t\t\t\t<input v-show=\"newStat\" type=\"text\" name=\"statname\" v-model=\"stat.statname\"><br>\n\t\t\t\t\t<div class=\"row gen-margin-top\">Stat Number</div>\n\t\t\t\t\t\t<input type=\"text\" name=\"number\" v-model=\"stat.number\"><br>\n\t\t\t\t\t<div class=\"row gen-margin-top\">\n\t\t\t\t\t\t<input v-on:click.prevent=\"submitStat()\" type=\"submit\" value=\"Submit\">\n\t\t\t\t\t</div>\n  \t\t\t</form>\n\n  \t\t</div>\n  \t</div>\n    <!--<pre v-cloak>{{ $data | json }}</pre> -->\n  </div>\n  \n";
 
 /***/ }
 /******/ ]);
