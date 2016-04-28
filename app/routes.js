@@ -133,7 +133,7 @@ function checkAuth(req, res, next) {
           });
         });
 
-        app.get('/api/stats', function(req, res){
+        app.get('/api/statistics', function(req, res){
           Stats.find().distinct('statname', function(err, statnames) {
             if(err)
               res.send(err)
@@ -142,7 +142,7 @@ function checkAuth(req, res, next) {
           });
         });
 
-        app.get('/api/fullstats',function(req,res){
+        app.get('/api/fullstatistics',function(req,res){
           Stats.find(function(err,stats){
             if(err)
               res.send(err)

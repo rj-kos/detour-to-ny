@@ -35704,7 +35704,7 @@
 
 	    methods: {
 	        getCurrentStats: function getCurrentStats() {
-	            this.$http.get('/api/stats').then(function (statnames) {
+	            this.$http.get('/api/statistics').then(function (statnames) {
 
 	                var stattitles = statnames.data;
 
@@ -35719,7 +35719,7 @@
 	            });
 	        },
 	        getStats: function getStats() {
-	            this.$http.get('/api/fullstats').then(function (stats) {
+	            this.$http.get('/api/fullstatistics').then(function (stats) {
 	                var statistics = stats.data;
 	                var rawStats = {};
 

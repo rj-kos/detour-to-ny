@@ -50,7 +50,7 @@ export default {
 	methods:{
     getCurrentStats:
       function(){
-          this.$http.get('/api/stats').then(function(stats){
+          this.$http.get('/api/statistics').then(function(stats){
               this.currentstatnames = stats.data;
               console.log(stats.data);
           }, function (response) {
@@ -59,7 +59,7 @@ export default {
     },
 		submitStat:
 			function(){
-				this.$http.post('/api/stats', this.stat)
+				this.$http.post('/api/statistics', this.stat)
 					.then(function(success){console.log(success)}, function(err){console.log(err)});
 			}
 		},

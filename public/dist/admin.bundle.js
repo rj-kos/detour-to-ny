@@ -30089,7 +30089,7 @@
 	  },
 	  methods: {
 	    getCurrentStats: function getCurrentStats() {
-	      this.$http.get('/api/stats').then(function (stats) {
+	      this.$http.get('/api/statistics').then(function (stats) {
 	        this.currentstatnames = stats.data;
 	        console.log(stats.data);
 	      }, function (response) {
@@ -30097,7 +30097,7 @@
 	      });
 	    },
 	    submitStat: function submitStat() {
-	      this.$http.post('/api/stats', this.stat).then(function (success) {
+	      this.$http.post('/api/statistics', this.stat).then(function (success) {
 	        console.log(success);
 	      }, function (err) {
 	        console.log(err);
