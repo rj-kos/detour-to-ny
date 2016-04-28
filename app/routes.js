@@ -177,7 +177,7 @@ function checkAuth(req, res, next) {
 
         });
 
-        app.post('/api/stats', checkAuth, function(req,res){
+        app.post('/api/statistics', checkAuth, function(req,res){
           var stat = new Stats();
           if(req.body.statname)
             stat.statname = req.body.statname;
