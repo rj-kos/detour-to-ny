@@ -1,4 +1,5 @@
 <template>
+
     <div class="container">
         <div class="half push-one-fourth gallery_place_holder" v-for="album in albums">
             <a v-link="{path:'/gallery/' + album.placeid}">
@@ -6,7 +7,6 @@
                 <h3 class="gallery_place_title">{{album.placename}}</h3>
             </a>
         </div>
-        <!--<pre v-cloak>{{ $data | json }}</pre>-->
     </div>
 
 </template>
@@ -81,11 +81,6 @@ export default {
                 }
         }
 
-    //data: function() {
-    //    return {
-    //    msg: 'Hello from vue-loader'
-    //    }
-    //}
 }
 
 </script>

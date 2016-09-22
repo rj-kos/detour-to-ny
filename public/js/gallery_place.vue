@@ -1,4 +1,5 @@
 <template>
+
     <div class="container">
     <h2 class="gallery_header">{{placename}}</h2>
         <div v-for="imageObj in album.imagepaths" class="row">
@@ -14,7 +15,7 @@
             </div>
         </div>
     </div>
-    <!--<pre v-cloak>{{ $data | json }}</pre>-->
+
 </template>
 
 <script>

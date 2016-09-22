@@ -1,10 +1,8 @@
 <template>
+
     <div class="container">
-    	
     	<div class="adminFormHolder one-third push-one-third column center animated bounceInDown">
-
     		<div class="row">
-
     			<form>
     				<div class="row">What's the stat?!</div>
   						<select v-model="statname">
@@ -22,10 +20,8 @@
   						<input v-on:click.prevent="submitStat()" type="submit" value="Submit">
   					</div>
     			</form>
-	
     		</div>
     	</div>
-      <!--<pre v-cloak>{{ $data | json }}</pre> -->
     </div>
     
 </template>
@@ -33,7 +29,6 @@
 <script>
 
 var $ = require('jquery');
-
 
 export default {
 	data: function() {
@@ -89,16 +84,6 @@ export default {
           }
         }
     }
-
-	
-
-    //props:['title','content']
-
-    //data: function() {
-    //    return {
-    //    msg: 'Hello from vue-loader'
-    //    }
-    //}
 }
 
 </script>

@@ -5,10 +5,7 @@
             <div class="one column map_holder"></div>
         </div>
     </div>
-
     <imageslider :images="sliderimages"></imageslider>
-
-    <!-- <pre v-cloak>{{ $data | json }}</pre> -->
 
 </template>
 
@@ -150,7 +147,7 @@ export default {
                       .attr("d", path)
                       .attr('class','country');
             
-                      //you'll pull data into here [[-77.053505, 38.910663],[-79.036203,35.923858],[-80.004820,32.778257],[-82.537949,35.593030],[-90.031, 29.981],[-97.712, 30.286]];
+                      //pull data into here [[-77.053505, 38.910663],[-79.036203,35.923858],[-80.004820,32.778257],[-82.537949,35.593030],[-90.031, 29.981],[-97.712, 30.286]];
                 var pathData = mapData;
             
                 var pathLine = d3.svg.line()  
@@ -189,7 +186,6 @@ export default {
                     .data(pathData).enter()
                     .append("circle")
                     .attr("class", "placeCircles")
-                    //.attr("class","country")
                     .attr("cx", function (d) { console.log(projection([d.coordinates.y , d.coordinates.x])); return projection([d.coordinates.y , d.coordinates.x])[0]; })
                     .attr("cy", function (d) { return projection([d.coordinates.y , d.coordinates.x])[1]; })
                     .attr("r", function(){return (originalWidth/100) + 'px'})
@@ -199,8 +195,7 @@ export default {
                         insertTooltipImg(findImagePath(d._id));
                         $(".tt_img_loader").css("display","block");
                         return $('.map_tt_wrap').stop().fadeIn().css({"display":"block", "top": (event.pageY+10)+"px", "left":ttipX()})})
-                    //.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-                    .on("mouseout", function(){return $('.map_tt_wrap').stop().fadeOut();});
+                    .on("mouseout", function(){return $('.map_tt_wrap').stop().fadeOut();})
                     ;
 
                 function ttipX(){
@@ -220,15 +215,11 @@ export default {
                     function(){
                        $(this).fadeOut();
                     });
-//
                   });
 
                 $('.map_tt_close').click(function(){
                     $('.map_tt_wrap').hide();
-                });
-
-
-                    
+                }); 
                 };
             
                 drawMap();
@@ -240,10 +231,7 @@ export default {
                     d3.select("g").style("stroke-width",function(){return 1/newScale + 'px'});
                     $("svg").height($(".map_holder").width()*0.64);
                 }
-            
                 $( window ).resize(function(){sizeChange();});
-            
-
             }
    },
 
@@ -253,19 +241,12 @@ export default {
                 this.buildMap(val, this.images);
         }
    },
-
    components:{
         imageslider:imageslider
    },
-
    ready () {
     this.getPlaces();
     this.getSliderImages();
-
-    //$('.collapsed_nav_link').click(function(){
-    //    console.log('sliding');
-    //    $('.mainNav').slideToggle();
-    //    });
     }
   
 }

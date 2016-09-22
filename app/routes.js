@@ -1,7 +1,5 @@
 var uuid = require('node-uuid');
-
 var multer = require('multer');
-
 var fs = require('fs');
 var gm = require('gm').subClass({imageMagick: true});
 
@@ -40,9 +38,8 @@ function checkAuth(req, res, next) {
 }
 
     module.exports = function(app) {
-
       //get requests
-
+        //get all blogposts
         app.get('/api/blog', function(req, res) {
            
            Blog.find().sort({date: -1}).find(function(err, blogposts) {
@@ -53,7 +50,7 @@ function checkAuth(req, res, next) {
                res.json(blogposts); 
            });
         });
-
+        //get singular blogpost
         app.get('/api/blog/:blogpost', function(req, res) {
            
            Blog.findOne({_id:req.params.blogpost},function(err, blogpost) {
@@ -64,7 +61,7 @@ function checkAuth(req, res, next) {
                res.json(blogpost); 
            });
         });
-
+        //get all places
         app.get('/api/places', function(req, res) {
            
            Places.find(function(err, places) {
@@ -75,7 +72,7 @@ function checkAuth(req, res, next) {
                res.json(places); 
            });
         });
-
+        //get singular place
         app.get('/api/places/:place', function(req, res){
 
           Places.findOne({_id:req.params.place}, function(err,place){
@@ -84,27 +81,11 @@ function checkAuth(req, res, next) {
 
               res.json(place);
           });
-
         });
-
-        app.get('/api/places/:place', function(req, res) {
-           
-           Places.findOne({_id:req.params.place},function(err, place) {
-
-               if (err)
-                   res.send(err)
-
-               res.json(place); 
-           });
-        });
-
-
+        //get image/album data
         app.get('/api/images', function(req, res) {
            
            Albums.find().sort({date: -1}).find(function(err, albums) {
-
-
-            //Albums.find().sort({date: 'desc'}).exec(function(err, docs) { ... });
 
                if (err)
                    res.send(err)
@@ -112,8 +93,8 @@ function checkAuth(req, res, next) {
                res.json(albums); 
            });
         });
-
-       app.get('/api/images/:place', function(req, res) {
+        //get all images attached to a particular place
+        app.get('/api/images/:place', function(req, res) {
            
            Albums.findOne({placeid:req.params.place},function(err, album) {
 
@@ -123,7 +104,7 @@ function checkAuth(req, res, next) {
                res.json(album); 
            });
         });
-
+        //get all image paths from uploads directory
         app.get('/api/allimages',function(req,res){
           fs.readdir(uploadDirectory,function(err,files){
             if(err)
@@ -132,7 +113,7 @@ function checkAuth(req, res, next) {
             res.json(files);
           });
         });
-
+        //get particular statistic
         app.get('/api/statistics', function(req, res){
           Stats.find().distinct('statname', function(err, statnames) {
             if(err)
@@ -141,7 +122,7 @@ function checkAuth(req, res, next) {
             res.json(statnames);
           });
         });
-
+        //get all statistics
         app.get('/api/fullstatistics',function(req,res){
           Stats.find(function(err,stats){
             if(err)
@@ -152,11 +133,9 @@ function checkAuth(req, res, next) {
         });
 
 
-        //posts
-
+        //posts, all posts check to make sure user is logged in - these all come from thea admin panel
+        //post a new place with its coordinates
         app.post('/api/places', checkAuth, function(req,res){
-
-          //res.contentType('json');
 
           var place = new Places();
           if(req.body.placename)
@@ -176,7 +155,7 @@ function checkAuth(req, res, next) {
           });
 
         });
-
+        //post a new stat or update a stat
         app.post('/api/statistics', checkAuth, function(req,res){
           var stat = new Stats();
           if(req.body.statname)
@@ -190,14 +169,10 @@ function checkAuth(req, res, next) {
 
             res.json({message:'Stat Registered'});
           });
-
         });
 
-
+        //submit a new blogpost
         app.post('/api/blog', checkAuth, upload.single( 'file' ), function(req,res,next){
-        
-          console.log(req.file);
-          console.log(req.body.placeid);
 
           var bp = new Blog();
           if(req.body.title)
@@ -213,8 +188,6 @@ function checkAuth(req, res, next) {
             if (err)
               res.send(err);
 
-            //res.json({message: 'Blog Post Created'});
-
             var fullImagePath = uploadDirectory + req.file.filename;
 
             gm(fullImagePath)
@@ -226,24 +199,8 @@ function checkAuth(req, res, next) {
 
             return res.status( 200 ).send( req.file );
           });
-
-          
-
         });
-
-       //app.post('/api/albums', function(req,res){
-       //  var album = new Albums();
-       //  album.save(function(err){
-       //    if (err)
-       //      res.send(err);
-
-       //    res.json({message: 'Album Created'});
-       //  });
-
-       //});
-
-        //
-
+        //submit new image/images
         app.post('/api/image_upload', checkAuth, upload.single( 'file' ), function(req,res,next){
         
           Albums.count({placeid: req.body.placeid}, function(err,count){
@@ -269,14 +226,10 @@ function checkAuth(req, res, next) {
               });
 
             }
-
-
           });          
 
-            
-
           var fullImagePath = uploadDirectory + req.file.filename;
-
+            //imagemagic processing
             gm(fullImagePath)
               .resize(1000)
               .noProfile()
@@ -287,9 +240,6 @@ function checkAuth(req, res, next) {
           return res.status( 200 ).send( req.file );
 
         });
-
-        // route to handle delete goes here (app.delete)
-
 
         //login, create user, and logout routes
         app.post('/api/login', function (req, res) {
@@ -315,7 +265,7 @@ function checkAuth(req, res, next) {
            });
 
         });
-
+        //creates a new username, hashes a password
         app.post('/api/createusername', function(req,res){
           var post = req.body;
           bcrypt.hash(post.password, saltRounds, function(err, hash){
@@ -332,14 +282,12 @@ function checkAuth(req, res, next) {
           });
 
         });
-
+        //logs out of the admin panel
         app.get('/api/logout', checkAuth, function (req, res) {
           delete req.session.logged_in;
           res.redirect('/login');
         });  
-
-        // frontend routes =========================================================
-        // route to handle all vue requests
+        // frontend routes (determines which index file is served)=========================================================
         app.get('/login', function(req,res){
             res.sendfile('./public/login.html');
         });

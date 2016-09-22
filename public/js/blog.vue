@@ -1,4 +1,5 @@
 <template>
+
     <div class="container center">
         <div class="blog_post_wrap">
             <div class="row blogpostholder center" v-for="blogpost in blogposts">
@@ -14,7 +15,6 @@
         </div>
     </div>
 
-    <!--<pre v-cloak>{{ $data | json }}</pre> -->
 </template>
 
 <script>
@@ -90,11 +90,6 @@ export default {
                 }
         }
 
-    //data: function() {
-    //    return {
-    //    msg: 'Hello from vue-loader'
-    //    }
-    //}
 }
 
 </script>

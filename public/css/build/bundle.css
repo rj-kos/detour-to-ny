@@ -893,7 +893,6 @@ body .post_content {
 
 .map .placeCircles:hover {
   r: 12px;
-  cursor: pointer;
   stroke: white;
   stroke-width: 2px;
 }

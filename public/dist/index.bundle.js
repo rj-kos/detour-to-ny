@@ -56,7 +56,7 @@
 	var gallery = __webpack_require__(60);
 	var gallery_place = __webpack_require__(63);
 	var about = __webpack_require__(66);
-	var stats = __webpack_require__(69);
+	var stats = __webpack_require__(68);
 
 	var $ = __webpack_require__(4);
 
@@ -24452,7 +24452,6 @@
 	                    }).on("mouseout", function () {
 	                        return $('.map_tt_wrap').stop().fadeOut();
 	                    });
-	                    ;
 
 	                    function ttipX() {
 	                        if ($(window).width() - event.pageX > 210) {
@@ -24486,7 +24485,6 @@
 	                });
 	                $("svg").height($(".map_holder").width() * 0.64);
 	            }
-
 	            $(window).resize(function () {
 	                sizeChange();
 	            });
@@ -24498,11 +24496,9 @@
 	            this.buildMap(val, this.images);
 	        }
 	    },
-
 	    components: {
 	        imageslider: imageslider
 	    },
-
 	    ready: function ready() {
 	        this.getPlaces();
 	        this.getSliderImages();
@@ -34656,7 +34652,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 
@@ -34667,44 +34663,42 @@
 	var slick = __webpack_require__(51);
 
 	lightbox.option({
-	  'albumLabel': '',
-	  'disableScrolling': true
+	    'albumLabel': '',
+	    'disableScrolling': true
 	});
 
 	exports.default = {
 
-	  methods: {
-	    getRand: function getRand(index) {
-	      return index * Math.random();
+	    methods: {
+	        getRand: function getRand(index) {
+	            return index * Math.random();
+	        }
+	    },
+
+	    props: ['images'],
+
+	    watch: {
+	        'images': function images(val, oldVal) {
+	            $('.image_slider').slick({
+	                infinite: false,
+	                slidesToShow: 3,
+	                slidesToScroll: 1,
+	                responsive: [{
+	                    breakpoint: 768,
+	                    settings: {
+	                        slidesToShow: 2,
+	                        slidesToScroll: 1
+	                    }
+	                }, {
+	                    breakpoint: 480,
+	                    settings: {
+	                        slidesToShow: 1,
+	                        slidesToScroll: 1
+	                    }
+	                }]
+	            });
+	        }
 	    }
-	  },
-
-	  props: ['images'],
-
-	  watch: {
-	    'images': function images(val, oldVal) {
-	      $('.image_slider').slick({
-	        infinite: false,
-
-
-	        slidesToShow: 3,
-	        slidesToScroll: 1,
-	        responsive: [{
-	          breakpoint: 768,
-	          settings: {
-	            slidesToShow: 2,
-	            slidesToScroll: 1
-	          }
-	        }, {
-	          breakpoint: 480,
-	          settings: {
-	            slidesToShow: 1,
-	            slidesToScroll: 1
-	          }
-	        }]
-	      });
-	    }
-	  }
 	};
 
 /***/ },
@@ -35199,7 +35193,7 @@
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"one column map_holder\"></div>\n    </div>\n</div>\n\n<imageslider :images=\"sliderimages\"></imageslider>\n\n<!-- <pre v-cloak>{{ $data | json }}</pre> -->\n\n";
+	module.exports = "\n\n<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"one column map_holder\"></div>\n    </div>\n</div>\n<imageslider :images=\"sliderimages\"></imageslider>\n\n";
 
 /***/ },
 /* 54 */
@@ -35305,7 +35299,7 @@
 /* 56 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder center\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
+	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder center\" v-for=\"blogpost in blogposts\">\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <img :src=\"'/uploads/' + blogpost.featureImage\">\n            </a>\n            <a v-link=\"{path:'/blog/' + blogpost._id}\">\n                <h2 class=\"post_title\">{{blogpost.title}}</h2>\n            </a>\n            <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n            <h4 class=\"post_date\">{{blogpost.date}}</h4>\n        </div>\n    </div>\n</div>\n\n";
 
 /***/ },
 /* 57 */
@@ -35407,7 +35401,7 @@
 /* 59 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\">\n            <img :src=\"'/uploads/' + blogpost.featureImage\">\n                <div class=\"blogpost_info_wrap\">\n                    <h2 class=\"post_title\">{{blogpost.title}}</h2>\n                    <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n                    <h4 class=\"post_date\">{{blogpost.date}}</h4>\n                </div>\n            <div class=\"post_content\">\n            {{{blogpost.content}}}\n            </div>\n        </div>\n    </div>\n</div>\n<imageslider :images=\"album.imagepaths\"></imageslider>\n";
+	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"blog_post_wrap\">\n        <div class=\"row blogpostholder left\">\n            <img :src=\"'/uploads/' + blogpost.featureImage\">\n                <div class=\"blogpost_info_wrap\">\n                    <h2 class=\"post_title\">{{blogpost.title}}</h2>\n                    <h3 class=\"post_place\">{{blogpost.placename}}</h3>\n                    <h4 class=\"post_date\">{{blogpost.date}}</h4>\n                </div>\n            <div class=\"post_content\">\n            {{{blogpost.content}}}\n            </div>\n        </div>\n    </div>\n</div>\n<imageslider :images=\"album.imagepaths\"></imageslider>\n\n";
 
 /***/ },
 /* 60 */
@@ -35512,7 +35506,7 @@
 /* 62 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n    <div class=\"half push-one-fourth gallery_place_holder\" v-for=\"album in albums\">\n        <a v-link=\"{path:'/gallery/' + album.placeid}\">\n            <img class=\"one column\" :src=\"'./uploads/' + album.galMenuImg\">\n            <h3 class=\"gallery_place_title\">{{album.placename}}</h3>\n        </a>\n    </div>\n    <!--<pre v-cloak>{{ $data | json }}</pre>-->\n</div>\n\n";
+	module.exports = "\n\n<div class=\"container\">\n    <div class=\"half push-one-fourth gallery_place_holder\" v-for=\"album in albums\">\n        <a v-link=\"{path:'/gallery/' + album.placeid}\">\n            <img class=\"one column\" :src=\"'./uploads/' + album.galMenuImg\">\n            <h3 class=\"gallery_place_title\">{{album.placename}}</h3>\n        </a>\n    </div>\n</div>\n\n";
 
 /***/ },
 /* 63 */
@@ -35609,19 +35603,14 @@
 /* 65 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container\">\n<h2 class=\"gallery_header\">{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\" v-if=\"imageObj.secondPath\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n<!--<pre v-cloak>{{ $data | json }}</pre>-->\n";
+	module.exports = "\n\n<div class=\"container\">\n<h2 class=\"gallery_header\">{{placename}}</h2>\n    <div v-for=\"imageObj in album.imagepaths\" class=\"row\">\n        <div class=\"half column place_gallery_image_holder center\">\n            <a :href=\"'./uploads/' + imageObj.firstPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.firstPath\"> \n            </a>\n        </div>\n        <div class=\"half column place_gallery_image_holder center\" v-if=\"imageObj.secondPath\">\n            <a :href=\"'./uploads/' + imageObj.secondPath\" data-lightbox=\"roadtrip\">\n                <img :src=\"'./uploads/' + imageObj.secondPath\"> \n            </a>\n        </div>\n    </div>\n</div>\n\n";
 
 /***/ },
 /* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(67)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] public/js/about.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(68)
+	__vue_template__ = __webpack_require__(67)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -35643,30 +35632,19 @@
 /* 67 */
 /***/ function(module, exports) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {};
+	module.exports = "\n<div class=\"container center\">\n    <div class=\"about_wrap\">\n        \"Let's move to New York.\"\n        <br>\n        \"Okay! Do you want to drive around the country aimlessly first?\"\n        <br>\n        \"I do, yeah.\"\n    </div>\n</div>\n\n";
 
 /***/ },
 /* 68 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"container center\">\n    <div class=\"about_wrap\">\n        \"Let's move to New York.\"\n        <br>\n        \"Okay! Do you want to drive around the country aimlessly first?\"\n        <br>\n        \"I do, yeah.\"\n    </div>\n</div>\n\n<!--<pre v-cloak>{{ $data | json }}</pre> -->\n";
-
-/***/ },
-/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(70)
+	__vue_script__ = __webpack_require__(69)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] public/js/stats.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(71)
+	__vue_template__ = __webpack_require__(70)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -35685,7 +35663,7 @@
 	})()}
 
 /***/ },
-/* 70 */
+/* 69 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35705,9 +35683,7 @@
 	    methods: {
 	        getCurrentStats: function getCurrentStats() {
 	            this.$http.get('/api/statistics').then(function (statnames) {
-
 	                var stattitles = statnames.data;
-
 	                for (var i = 0; i < stattitles.length; i++) {
 	                    var statObj = {};
 	                    statObj.name = stattitles[i];
@@ -35722,7 +35698,6 @@
 	            this.$http.get('/api/fullstatistics').then(function (stats) {
 	                var statistics = stats.data;
 	                var rawStats = {};
-
 	                for (var i = 0; i < statistics.length; i++) {
 	                    if (!rawStats[statistics[i].statname]) {
 	                        rawStats[statistics[i].statname] = statistics[i].number;
@@ -35730,7 +35705,6 @@
 	                        rawStats[statistics[i].statname] += statistics[i].number;
 	                    }
 	                }
-
 	                this.stats = rawStats;
 	            }, function (response) {
 	                console.log('error');
@@ -35739,7 +35713,6 @@
 	        supplyStat: function supplyStat(statname) {
 	            return this.stats.statname;
 	        }
-
 	    },
 
 	    ready: function ready() {
@@ -35754,10 +35727,10 @@
 	};
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"container center\">\n    <div class=\"statHolder\" v-for=\"displaystat in displaystats\">\n        {{displaystat.name}} : {{displaystat.number}}\n    </div>    \n</div>\n<!-- <pre v-cloak>{{ $data | json }}</pre> -->\n";
+	module.exports = "\n\n<div class=\"container center\">\n    <div class=\"statHolder\" v-for=\"displaystat in displaystats\">\n        {{displaystat.name}} : {{displaystat.number}}\n    </div>    \n</div>\n\n";
 
 /***/ }
 /******/ ]);

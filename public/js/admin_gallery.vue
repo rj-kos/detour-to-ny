@@ -1,8 +1,6 @@
 <template>
-    <div class="container">
-        
+    <div class="container">  
         <div class="adminFormHolder two-thirds push-one-sixth column center animated bounceInDown">
-
             <div class="row">
                 <h2 class="gen-margin-top">Got new pics!??!</h2>
             </div>
@@ -23,25 +21,18 @@
                 <div class="row gen-margin-top">
                     <input type="submit" value="Submit" v-on:click="dzUpload()"> 
                     <br>{{warning}}
-                </div>
-    
+                </div> 
             </div>
         </div>
     </div>
     
-    
 </template>
 
-
-
 <script>
-
-
 var Vue = require('vue');
 Vue.use(require('vue-resource'));
 
 var $ = require('jquery');
-
 
 export default {
 
@@ -87,14 +78,6 @@ export default {
         this.$parent.$options.methods.makeDZ('dropzone', {url:"/api/image_upload", autoProcessQueue: false, parallelUploads: 3});
         this.getPlaces();
     }
-
-    //props:['title','content']
-
-    //data: function() {
-    //    return {
-    //    msg: 'Hello from vue-loader'
-    //    }
-    //}
 }
 
 </script>

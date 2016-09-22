@@ -16,6 +16,7 @@
         </div>
     </div>
     <imageslider :images="album.imagepaths"></imageslider>
+    
 </template>
 
 <script>

@@ -1,10 +1,11 @@
 <template>
+
     <div class="container center">
         <div class="statHolder" v-for="displaystat in displaystats">
             {{displaystat.name}} : {{displaystat.number}}
         </div>    
     </div>
-    <!-- <pre v-cloak>{{ $data | json }}</pre> -->
+
 </template>
 
 <script>
@@ -23,10 +24,7 @@ export default {
         getCurrentStats:
             function(){
                 this.$http.get('/api/statistics').then(function(statnames){
-
                     var stattitles = statnames.data;
-                    
-                    
                     for(var i=0;i<stattitles.length;i++){
                         var statObj = {};
                         statObj.name = stattitles[i];
@@ -34,7 +32,8 @@ export default {
                         this.displaystats.push(statObj);
                     }
 
-                }, function (response) {
+                }, 
+                function (response) {
                     console.log('error');
                 });
             },
@@ -43,7 +42,6 @@ export default {
                 this.$http.get('/api/fullstatistics').then(function(stats){
                     var statistics = stats.data;
                     var rawStats = {};
-                    
                     for(var i=0; i<statistics.length;i++){
                         if(!rawStats[statistics[i].statname]){
                             rawStats[statistics[i].statname] = statistics[i].number;
@@ -52,9 +50,7 @@ export default {
                             rawStats[statistics[i].statname] += statistics[i].number;
                         }
                     }
-
                     this.stats = rawStats;
-
                 },
                 function(response){
                     console.log('error');
@@ -64,7 +60,6 @@ export default {
             function(statname){
                 return this.stats.statname;
             }
-
     },
 
     ready () {

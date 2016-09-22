@@ -9,14 +9,7 @@
         </div>
     </div>
 
-    <!--<pre v-cloak>{{ $data | json }}</pre> -->
 </template>
 
-<script>
 
-export default {
-
-}
-
-</script>
 

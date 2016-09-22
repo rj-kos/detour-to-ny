@@ -1,14 +1,12 @@
 <template>
-    <div class="container">
-        
+
+    <div class="container">       
         <div class="adminFormHolder two-thirds push-one-sixth column center animated bounceInDown">
             <div class="bp_wrap left">
                 <div class="row center">
                     <h2 class="gen-margin-top">Write a new blog post!</h2>
                 </div>
-                <div class="row">
-    
-                   
+                <div class="row">    
                         <div class="row center">
                             <div><b>LOCATION</b></div>
                             <select v-model="blogpost.placeid">
@@ -28,18 +26,10 @@
                             <input type="text" name="title" value="{{blogpost.title}}" style="display:none;">
                             <input type="text" name="content" value="{{blogpost.content}}" style="display:none;">
                         </form>
-                        
-
                         <textarea class="editable gen-margin-top" v-model="blogpost.content"></textarea>
                         <div class="row gen-margin-top center">
                             <input v-on:click.prevent="submitPost(uploadDZ)" type="submit" value="Submit">
-                        </div>
-                    
-
-                    
-    
-                    
-        
+                        </div> 
                 </div>
             </div>
         </div>

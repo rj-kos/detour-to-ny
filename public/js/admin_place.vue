@@ -1,13 +1,11 @@
 <template>
+    
     <div class="container">
-    	
     	<div class="adminFormHolder one-third push-one-third column center animated bounceInDown">
-
     		<div class="row">
         		<h2 class="gen-margin-top">Register a new place!</h2>
     		</div>
     		<div class="row">
-
     			<form>
     				<div class="row">Place Title (where are we?!?)</div>
   						<input type="text" name="placename" v-model="place.placename">
@@ -23,7 +21,6 @@
   						<input v-on:click.prevent="submitPlace()" type="submit" value="Submit">
   					</div>
     			</form>
-	
     		</div>
     	</div>
     </div>
@@ -82,16 +79,6 @@ export default {
         
       }
     }
-
-	
-
-    //props:['title','content']
-
-    //data: function() {
-    //    return {
-    //    msg: 'Hello from vue-loader'
-    //    }
-    //}
 }
 
 </script>

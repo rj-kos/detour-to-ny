@@ -38,41 +38,32 @@ export default {
 
     props:['images'],
 
-
     watch : {
      'images':
          function(val,oldVal) {
              $('.image_slider').slick({
-               infinite: false,
-               //lazyLoad:'ondemand',
-
- 
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
+                infinite: false,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                responsive: [
+                  {
+                    breakpoint: 768,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 1,
+                    }
+                  },
+                  {
+                    breakpoint: 480,
+                    settings: {
+                      slidesToShow: 1,
+                      slidesToScroll: 1
+                    }
+                  }
+                ]
             });
-
-        //$('div.slider_img_wrap').children('a').filter(function(){
-          //  return $(this).parent().attr('data-slick-index') >= 0;
-        //}).attr("data-lightbox","roadtrip");
-
         }
-     }
+    }
 }
 
 </script>
